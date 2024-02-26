@@ -87,7 +87,7 @@ class _SideDrawerState extends State<SideDrawer> {
                     ],
                   ),
                   onTap: (){
-                    Navigator.pushNamed(context, '/login_page');
+                    Navigator.pushNamed(context, '/login_screen');
                   },
                 ),
               ),
