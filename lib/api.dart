@@ -5,7 +5,7 @@ import 'consts.dart';
 
 Future<List<dynamic>> fetchSellListForShowing() async {
   final List<dynamic> data;
-  final response = await http.get(Uri.parse('${apiLinkConstant}/listing/get?type=sell&limit=4'));
+  final response = await http.get(Uri.parse('$apiLinkConstant/listing/get?type=sell&limit=4'));
   if (response.statusCode == 200) {
     data = json.decode(response.body);
     print(data);
@@ -19,7 +19,7 @@ Future<List<dynamic>> fetchSellListForShowing() async {
 
 Future<List<dynamic>> fetchRentListForShowing() async {
   final List<dynamic> data;
-  final response = await http.get(Uri.parse('${apiLinkConstant}/listing/get?type=rent&limit=4'));
+  final response = await http.get(Uri.parse('$apiLinkConstant/listing/get?type=rent&limit=4'));
   if (response.statusCode == 200) {
     data = json.decode(response.body);
     print(data);
@@ -33,7 +33,7 @@ Future<List<dynamic>> fetchRentListForShowing() async {
 
 Future<List<dynamic>> fetchDiscountListForShowing() async {
   final List<dynamic> data;
-  final response = await http.get(Uri.parse('${apiLinkConstant}/listing/get?discount=true&limit=4'));
+  final response = await http.get(Uri.parse('$apiLinkConstant/listing/get?discount=true&limit=4'));
   if (response.statusCode == 200) {
     data = json.decode(response.body);
     print(data);

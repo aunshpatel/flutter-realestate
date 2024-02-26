@@ -6,7 +6,7 @@ import '../models/user_model.dart';
 //Login
 class UserController {
   static Future<bool> loginUser(UserLogin user) async {
-    final url = Uri.parse('${apiLinkConstant}/auth/signin');
+    final url = Uri.parse('$apiLinkConstant/auth/signin');
 
     final response = await http.post(
       url,
