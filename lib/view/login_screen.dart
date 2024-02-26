@@ -4,6 +4,8 @@ import 'package:realestate/view/widgets/side_drawer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../consts.dart';
+import '../controllers/user_controller.dart';
+import '../models/user_model.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -181,22 +183,24 @@ class _LoginScreenState extends State<LoginScreen> {
               title:'Login',
               onPress:() async {
                 if(emailController.text != '' && passwordController.text != '') {
-                  if(emailController.text.length < 6){
-                    _showMyDialog('Incorrect password! Please check your password length and try again.');
-                  }
-                  else{
-                    setState(() {
-                      showSpinner = true;
-                    });
+                  // if(emailController.text.length < 6){
+                  //   _showMyDialog('Incorrect password! Please check your password length and try again.');
+                  // }
+                  // else{
+                  //   setState(() {
+                  //     showSpinner = true;
+                  //   });
                     try{
-
+                      final user = UserLogin(email: emailController.text, password: passwordController.text);
+                      final success = await UserController.loginUser(user);
+                      print("success: $success");
                     } catch(e){
                       setState(() {
                         showSpinner = false;
                       });
                       return _showMyDialog('${e.toString()}');
                     }
-                  }
+                  // }
                 }
                 else if(passwordController.text.isEmpty && emailController.text.isNotEmpty){
                   _showMyDialog('No password entered. Please enter the your password.');
