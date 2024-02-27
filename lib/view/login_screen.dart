@@ -106,101 +106,21 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(
               height: 24.0,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  'New User?',
-                  style: kLightSemiBoldTextStyle,
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                GestureDetector(
-                  onTap: (){
-                    // Navigator.pushNamed(context, '/registration_screen');
-                  },
-                  child: const Text(
-                    'Register Here',
-                    style: kDarkSemiBoldTextStyle,
-                  ),
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 24.0,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Checkbox(
-                      checkColor: kDarkTitleColor,
-                      side: MaterialStateBorderSide.resolveWith( (states) => const BorderSide(width: 1.0, color: kDarkTitleColor), ),
-                      fillColor: MaterialStateProperty.all(Colors.transparent),
-                      value: _isRememberMe,
-                      onChanged: isRememberMeDisabled == false ? (value){
-                        setState(() {
-                          _isRememberMe = value!;
-                        });
-                        actionRememberMe(_isRememberMe);
-                      } : null,
-                    ),
-                    const Text(
-                      'Remember Me',
-                      style: kLightSemiBoldTextStyle,
-                    )
-                  ],
-                ),
-                Row(
-                  children: [
-                    Checkbox(
-                      checkColor: kDarkTitleColor,
-                      side: MaterialStateBorderSide.resolveWith( (states) => const BorderSide(width: 1.0, color: kDarkTitleColor), ),
-                      fillColor: MaterialStateProperty.all(Colors.transparent),
-                      value: automaticLogin,
-                      onChanged: (value){
-                        setState(() {
-                          automaticLogin = value!;
-                        });
-                        autoLogin(automaticLogin);
-                      },
-                    ),
-                    const Text(
-                      'Auto Login',
-                      style: kDarkSemiBoldTextStyle,
-                    )
-                  ],
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 24.0,
-            ),
             RoundedButton(
               colour:kDarkTitleColor,
               title:'Login',
               onPress:() async {
                 if(emailController.text != '' && passwordController.text != '') {
-                  // if(emailController.text.length < 6){
-                  //   _showMyDialog('Incorrect password! Please check your password length and try again.');
-                  // }
-                  // else{
-                  //   setState(() {
-                  //     showSpinner = true;
-                  //   });
-                    try{
-                      final user = UserLogin(email: emailController.text, password: passwordController.text);
-                      final success = await UserController.loginUser(user);
-                      print("success: $success");
-                    } catch(e){
-                      setState(() {
-                        showSpinner = false;
-                      });
-                      return _showMyDialog('${e.toString()}');
-                    }
-                  // }
+                  try{
+                    final user = UserLogin(email: emailController.text, password: passwordController.text);
+                    final success = await UserController.loginUser(user);
+                    print("success: $success");
+                  } catch(e){
+                    setState(() {
+                      showSpinner = false;
+                    });
+                    return _showMyDialog('${e.toString()}');
+                  }
                 }
                 else if(passwordController.text.isEmpty && emailController.text.isNotEmpty){
                   _showMyDialog('No password entered. Please enter the your password.');
