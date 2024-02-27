@@ -19,25 +19,25 @@ class _SideDrawerState extends State<SideDrawer> {
           child: ListView(
             children: [
               Container(
-                  decoration: const BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        color: kBlackColor,
-                      )
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: kBlackColor,
                     )
-                  ),
-                  child: SizedBox(
-                      height: 200,
-                      child: Image.asset('images/realestate-high-resolution-logo.jpeg')
                   )
+                ),
+                child: SizedBox(
+                    height: 200,
+                    child: Image.asset('images/realestate-high-resolution-logo.jpeg')
+                )
               ),
               Container(
                 decoration: const BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                          color: kBlackColor,
-                        )
+                  border: Border(
+                    bottom: BorderSide(
+                      color: kBlackColor,
                     )
+                  )
                 ),
                 child: ListTile(
                   title: const Wrap(
@@ -53,11 +53,11 @@ class _SideDrawerState extends State<SideDrawer> {
               ),
               Container(
                 decoration: const BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                          color: kBlackColor,
-                        )
+                  border: Border(
+                    bottom: BorderSide(
+                      color: kBlackColor,
                     )
+                  )
                 ),
                 child: ListTile(
                   title: const Wrap(
@@ -73,11 +73,11 @@ class _SideDrawerState extends State<SideDrawer> {
               ),
               Container(
                 decoration: const BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                          color: kBlackColor,
-                        )
+                  border: Border(
+                    bottom: BorderSide(
+                      color: kBlackColor,
                     )
+                  )
                 ),
                 child: ListTile(
                   title: const Wrap(
