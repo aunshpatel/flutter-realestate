@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:realestate/view/widgets/rounded_buttons.dart';
 import 'package:realestate/view/widgets/side_drawer.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../consts.dart';
 import 'package:path/path.dart' as Path;
 
@@ -17,6 +19,23 @@ class _MyProfileState extends State<MyProfile> {
   File? _image;
   final picker = ImagePicker();
   var profilePic = prefs!.getString('avatarImage');
+
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  bool _passwordVisible = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadDetails();
+  }
+
+  loadDetails() {
+    usernameController.text = prefs!.getString('username')!;
+    emailController.text = prefs!.getString('email')!;
+  }
 
   Future getPhotoFromGallery() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -85,6 +104,63 @@ class _MyProfileState extends State<MyProfile> {
                 ),
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent)
               ),
+              const SizedBox(height:40),
+              TextField(
+                controller: usernameController,
+                readOnly: true,
+                onChanged:(value){
+
+                },
+                style: const TextStyle(color: kLightTitleColor),
+                decoration: emailInputDecoration('Username',),
+              ),
+              const SizedBox(height:40),
+              TextField(
+                controller: emailController,
+                keyboardType: TextInputType.emailAddress,
+                readOnly: true,
+                onChanged:(value){
+
+                },
+                style: const TextStyle(color: kLightTitleColor),
+                decoration: emailInputDecoration('Email',),
+              ),
+              const SizedBox(height:40),
+              TextField(
+                controller: passwordController,
+                obscureText: _passwordVisible == false ? true : false,
+                onChanged:(value){
+
+                },
+                style: const TextStyle(color: kThemeBlueColor),
+                decoration: passwordInputDecoration(
+                    'Enter your password',
+                    _passwordVisible,
+                        (){
+                      setState(() {
+                        _passwordVisible = !_passwordVisible;
+                      });
+                    }
+                ),
+              ),
+              const SizedBox(height:40),
+              RoundedButton(
+                colour:kDarkTitleColor,
+                title:'Logout',
+                onPress:() {
+                  setState(() async {
+                    isLoggedIn = false;
+                    prefs = await SharedPreferences.getInstance();
+                    prefs.setBool('isLoggedIn', isLoggedIn);
+                    prefs.setString('email', '');
+                    prefs.setString('username', '');
+                    prefs.setString('password', '');
+                    prefs.setString('avatarImage', '');
+                    logoutMessage();
+                  });
+                  // Navigator.pushNamed(context, '/main_screen');
+                },
+              ),
             ],
           ),
         )
@@ -132,6 +208,33 @@ class _MyProfileState extends State<MyProfile> {
               child: const Text('Cancel', style: TextStyle(color: kDarkTitleColor),),
               onPressed: () {
                 Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  logoutMessage() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Logout Successful!', style: TextStyle(color: kDarkTitleColor, fontSize: 20.0)),
+          content: const SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('You have logged out successfully!', style: TextStyle(color: kLightTitleColor)),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK', style: TextStyle(color: kLightTitleColor),),
+              onPressed: () {
+                Navigator.pushNamed(context, '/main_screen');
               },
             ),
           ],
