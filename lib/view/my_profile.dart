@@ -31,7 +31,7 @@ class _MyProfileState extends State<MyProfile> {
   }
 
   Future photoFromCamera() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+    final pickedFile = await picker.pickImage(source: ImageSource.camera, imageQuality: 100);
 
     setState(() {
       if (pickedFile != null) {
