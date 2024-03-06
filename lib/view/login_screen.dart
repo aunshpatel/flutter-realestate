@@ -120,6 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       isLoggedIn = true;
                     });
                     prefs.setBool('isLoggedIn', isLoggedIn);
+                    _loginMessage();
                     print("success: $success");
                   } catch(e){
                     setState(() {
@@ -253,6 +254,33 @@ class _LoginScreenState extends State<LoginScreen> {
               child: const Text('OK', style: TextStyle(color: kThemeBlueColor),),
               onPressed: () {
                 Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _loginMessage() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Login Successful!', style: TextStyle(color: kThemeBlueColor, fontSize: 20.0)),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Congratulations! You have logged in successfully!', style: TextStyle(color: kThemeBlueColor)),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK', style: TextStyle(color: kThemeBlueColor),),
+              onPressed: () {
+                Navigator.pushNamed(context, '/main_screen');
               },
             ),
           ],
