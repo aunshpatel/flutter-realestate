@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:realestate/view/login_screen.dart';
+import 'package:realestate/view/my_profile.dart';
 import 'api.dart';
 import 'view/main_screen.dart';
 void main() {
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/main_screen':(context) => const MainScreen(),
         '/login_screen':(context) => const LoginScreen(),
+        '/profile_page':(context) => const MyProfile(),
       },
     );
   }
