@@ -143,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 else if(emailController.text == '' && passwordController.text != ''){
                   _showMyDialog('Warning!','Please enter your email id to login.');
                 }
-                else if(emailController.text == '' && passwordController.text != ''){
+                else if(emailController.text != '' && passwordController.text == ''){
                   _showMyDialog('Warning!','Please enter your password to login.');
                 }
               },
