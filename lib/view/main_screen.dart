@@ -88,7 +88,7 @@ class _MainScreenState extends State<MainScreen> {
                     children: [
                       const Row(
                         children: [
-                          Text('Recent Properties With Discount', style: kTextStyle,)
+                          Text('Recent Properties With Discount', style: kSideMenuLightTextStyle,)
                         ],
                       ),
                       Expanded(
@@ -149,7 +149,7 @@ class _MainScreenState extends State<MainScreen> {
                     children: [
                       const Row(
                         children: [
-                          Text('Recent Properties For Sale', style: kTextStyle,)
+                          Text('Recent Properties For Sale', style: kSideMenuLightTextStyle,)
                         ],
                       ),
                       Expanded(
@@ -207,7 +207,7 @@ class _MainScreenState extends State<MainScreen> {
                   children: [
                     const Row(
                       children: [
-                        Text('Recent Properties For Rent', style: kTextStyle,)
+                        Text('Recent Properties For Rent', style: kSideMenuLightTextStyle,)
                       ],
                     ),
                     Expanded(
