@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+late SharedPreferences prefs;
 
 String apiLinkConstant = 'https://realestate-vgcw.onrender.com/api';
 
@@ -90,8 +91,6 @@ var kFocusedBorder = const OutlineInputBorder(
   borderSide: BorderSide(color: kDarkTitleColor, width: 2.0),
   borderRadius: BorderRadius.all(Radius.circular(32.0)),
 );
-
-late SharedPreferences prefs;
 
 bool automaticLogin = false;
 

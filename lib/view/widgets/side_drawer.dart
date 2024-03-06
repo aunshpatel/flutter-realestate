@@ -51,7 +51,7 @@ class _SideDrawerState extends State<SideDrawer> {
                   },
                 ),
               ),
-              Container(
+              isLoggedIn == true ? Container(
                 decoration: const BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
@@ -70,8 +70,8 @@ class _SideDrawerState extends State<SideDrawer> {
                     Navigator.pushNamed(context, '/profile_page');
                   },
                 ),
-              ),
-              Container(
+              ) : SizedBox(),
+              isLoggedIn == false ? Container(
                 decoration: const BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
@@ -90,8 +90,8 @@ class _SideDrawerState extends State<SideDrawer> {
                     Navigator.pushNamed(context, '/login_screen');
                   },
                 ),
-              ),
-              Container(
+              ) : SizedBox(),
+              isLoggedIn == true ? Container(
                 decoration: const BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
@@ -110,7 +110,7 @@ class _SideDrawerState extends State<SideDrawer> {
 
                   },
                 ),
-              ),
+              ) : SizedBox(),
             ],
           ),
         )

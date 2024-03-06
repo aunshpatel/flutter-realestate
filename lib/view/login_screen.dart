@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:realestate/view/widgets/rounded_buttons.dart';
 import 'package:realestate/view/widgets/side_drawer.dart';
@@ -94,13 +96,13 @@ class _LoginScreenState extends State<LoginScreen> {
               },
               style: const TextStyle(color: kThemeBlueColor),
               decoration: passwordInputDecoration(
-                  'Enter your password',
-                  _passwordVisible,
-                      (){
-                    setState(() {
-                      _passwordVisible = !_passwordVisible;
-                    });
-                  }
+                'Enter your password',
+                _passwordVisible,
+                  (){
+                  setState(() {
+                    _passwordVisible = !_passwordVisible;
+                  });
+                }
               ),
             ),
             const SizedBox(
@@ -113,11 +115,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 if(emailController.text != '' && passwordController.text != '') {
                   try{
                     final user = UserLogin(email: emailController.text, password: passwordController.text);
+
                     final success = await UserController.loginUser(user);
+                    setState(() {
+                      isLoggedIn = true;
+                    });
                     print("success: $success");
                   } catch(e){
                     setState(() {
                       showSpinner = false;
+                      isLoggedIn = false;
                     });
                     return _showMyDialog('${e.toString()}');
                   }
