@@ -53,10 +53,22 @@ const kSideMenuDarkTextStyle = TextStyle(
   color: kDarkTitleColor,
 );
 
-const kTextStyle = TextStyle(
+const kLightBoldTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
-  fontSize: 20,
+  fontSize: 18,
   color: kLightTitleColor,
+);
+
+const kWhiteBoldTextStyle = TextStyle(
+  fontWeight: FontWeight.bold,
+  fontSize: 18,
+  color: kWhiteColor,
+);
+
+const kDarkBoldTextStyle = TextStyle(
+  fontWeight: FontWeight.bold,
+  fontSize: 18,
+  color: kDarkTitleColor,
 );
 
 const kLightSemiBoldTextStyle = TextStyle(
