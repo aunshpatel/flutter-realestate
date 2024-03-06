@@ -115,34 +115,35 @@ class _LoginScreenState extends State<LoginScreen> {
                 if(emailController.text != '' && passwordController.text != '') {
                   try{
                     final user = UserLogin(email: emailController.text, password: passwordController.text);
-
                     final success = await UserController.loginUser(user);
                     setState(() {
                       isLoggedIn = true;
                     });
+                    prefs.setBool('isLoggedIn', isLoggedIn);
                     print("success: $success");
                   } catch(e){
                     setState(() {
                       showSpinner = false;
                       isLoggedIn = false;
                     });
-                    return _showMyDialog('${e.toString()}');
+                    prefs.setBool('isLoggedIn', isLoggedIn);
+                    return _showMyDialog('Warning!','${e.toString()}');
                   }
                 }
                 else if(passwordController.text.isEmpty && emailController.text.isNotEmpty){
-                  _showMyDialog('No password entered. Please enter the your password.');
+                  _showMyDialog('Warning!','No password entered. Please enter the your password.');
                 }
                 else if(passwordController.text.isNotEmpty && emailController.text.isEmpty){
-                  _showMyDialog('No email id entered. Please enter your email id.');
+                  _showMyDialog('Warning!','No email id entered. Please enter your email id.');
                 }
                 else if(emailController.text.isEmpty && passwordController.text.isEmpty){
-                  _showMyDialog('Email and password fields are empty. Please enter both values to login.');
+                  _showMyDialog('Warning!','Email and password fields are empty. Please enter both values to login.');
                 }
                 else if(emailController.text == '' && passwordController.text != ''){
-                  _showMyDialog('Please enter your email id to login.');
+                  _showMyDialog('Warning!','Please enter your email id to login.');
                 }
                 else if(emailController.text == '' && passwordController.text != ''){
-                  _showMyDialog('Please enter your password to login.');
+                  _showMyDialog('Warning!','Please enter your password to login.');
                 }
               },
             ),
@@ -231,14 +232,15 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   //Alert box
-  Future<void> _showMyDialog(String text) async {
-    String AlertText = text;
+  Future<void> _showMyDialog(String title, String bodyText) async {
+    String AlertText = bodyText;
+    String AlertTitle = title;
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Warning!', style: TextStyle(color: kThemeBlueColor, fontSize: 20.0)),
+          title: Text(AlertTitle, style: TextStyle(color: kThemeBlueColor, fontSize: 20.0)),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
