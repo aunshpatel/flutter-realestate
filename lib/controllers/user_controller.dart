@@ -23,7 +23,7 @@ class UserController {
       prefs.setString('userID', userInfo["_id"]);
       prefs.setString('username', userInfo["username"]);
       prefs.setString('email', userInfo["email"]);
-      prefs.setString('avatar_image', userInfo["avatar"]);
+      prefs.setString('avatarImage', userInfo["avatar"]);
       print("Login successful with data: ${userInfo}");
       return true;
     } else {
