@@ -58,11 +58,11 @@ class _MainScreenState extends State<MainScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24),
+          padding: EdgeInsets.fromLTRB(24, 24, 24, 0),
           child: Column(
             children: [
               const Padding(
-                padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                padding: EdgeInsets.only(bottom: 20),
                 child: Center(
                   child: Wrap(
                     alignment: WrapAlignment.center,
