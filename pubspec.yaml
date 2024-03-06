@@ -38,6 +38,7 @@ dependencies:
   http: ^1.2.1
   shared_preferences: ^2.2.2
   mongo_dart: ^0.10.0
+  image_picker: ^0.8.0+3
 
 dev_dependencies:
   flutter_test:
