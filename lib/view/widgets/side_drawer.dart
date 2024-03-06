@@ -91,26 +91,6 @@ class _SideDrawerState extends State<SideDrawer> {
                   },
                 ),
               ) : SizedBox(),
-              isLoggedIn == true ? Container(
-                decoration: const BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: kBlackColor,
-                    )
-                  )
-                ),
-                child: ListTile(
-                  title: const Wrap(
-                    children: [
-                      Text('Log', style:kSideMenuLightTextStyle),
-                      Text('out', style:kSideMenuDarkTextStyle,),
-                    ],
-                  ),
-                  onTap: (){
-
-                  },
-                ),
-              ) : SizedBox(),
             ],
           ),
         )
