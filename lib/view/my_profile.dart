@@ -35,6 +35,7 @@ class _MyProfileState extends State<MyProfile> {
   loadDetails() {
     usernameController.text = prefs!.getString('username')!;
     emailController.text = prefs!.getString('email')!;
+    passwordController.text = prefs!.getString('password')!;
   }
 
   Future getPhotoFromGallery() async {
@@ -129,6 +130,7 @@ class _MyProfileState extends State<MyProfile> {
               TextField(
                 controller: passwordController,
                 obscureText: _passwordVisible == false ? true : false,
+                readOnly: true,
                 onChanged:(value){
 
                 },
