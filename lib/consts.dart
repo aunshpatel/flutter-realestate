@@ -5,6 +5,8 @@ late SharedPreferences prefs;
 
 String apiLinkConstant = 'https://realestate-vgcw.onrender.com/api';
 
+String currentUserID = '', token = '', JWT_SECRET = 'realestate-project', newUsername='',newEmail='',newPassword='',newProfilePic='';
+
 const kWhiteColor = Colors.white;
 
 const kBlackColor = Colors.black;
