@@ -71,9 +71,7 @@ class _MyProfileState extends State<MyProfile> {
   Future updateProfile(String uname, String email, String pwd, String profilePic) async {
 
     final updatedUser = UserUpdate(username: uname, email: email, password: pwd, avatar:profilePic);
-    print("updatedUser:$updatedUser");
     final success = await UserController.updateUser(updatedUser);
-    print("update successful: $success");
     if(success == true){
       updateDialog('Congratulations!', 'Your profile has been updated successfully!');
     } else{
@@ -141,7 +139,6 @@ class _MyProfileState extends State<MyProfile> {
                   TextField(
                     controller: emailController,
                     keyboardType: TextInputType.emailAddress,
-                    readOnly: true,
                     onChanged:(value){
                       setState(() {
                         email = value;
@@ -154,7 +151,6 @@ class _MyProfileState extends State<MyProfile> {
                   TextField(
                     controller: passwordController,
                     obscureText: _passwordVisible == false ? true : false,
-                    readOnly: true,
                     onChanged:(value){
                       setState(() {
                         password = value;
