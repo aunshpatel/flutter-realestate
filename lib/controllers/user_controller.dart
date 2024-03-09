@@ -27,7 +27,6 @@ class UserController {
       prefs.setString('username', userInfo["username"]);
       prefs.setString('email', userInfo["email"]);
       prefs.setString('avatarImage', userInfo["avatar"]);
-      print("Login successful with data: ${userInfo}");
       return true;
     } else {
       // Login failed
@@ -47,15 +46,12 @@ class UserController {
       headers: headers,
       body: json.encode(user.toJson()),
     );
-    print("Update user response headers:${response.headers.toString()}");
-    print("Update user response:${response.body.toString()}");
 
     if (response.statusCode == 200) {
       // Update successful
       var userInfo = jsonDecode(response.body);
       prefs.setString('username', userInfo["username"]);
       prefs.setString('email', userInfo["email"]);
-      print("Update successful with data: ${userInfo}");
       return true;
     } else {
       // Update failed

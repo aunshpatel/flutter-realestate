@@ -31,11 +31,9 @@ class _MyAppState extends State<MyApp> {
     isLoggedIn = prefs.getBool('isLoggedIn')!;
     loginEmailID = prefs.getString('email') ?? '';
     loginPassword = prefs.getString('password') ?? '';
-    print("loginEmailID: $loginEmailID, loginPassword:$loginPassword");
 
     final user = UserLogin(email: loginEmailID, password: loginPassword);
     final success = await UserController.loginUser(user);
-    print("main page success: $success");
     setState(() {
       isLoggedIn = true;
     });
