@@ -13,7 +13,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  var listingWithDiscount = [], listingForRent = [], listingForSale = [];
+  // var listingWithDiscount = [], listingForRent = [], listingForSale = [];
 
   @override
   void initState() {

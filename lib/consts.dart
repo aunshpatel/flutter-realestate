@@ -7,6 +7,8 @@ String apiLinkConstant = 'https://realestate-vgcw.onrender.com/api';
 
 String currentUserID = '', token = '', JWT_SECRET = 'realestate-project', newUsername='',newEmail='',newPassword='',newProfilePic='';
 
+var listingWithDiscount = [], listingForRent = [], listingForSale = [];
+
 const kWhiteColor = Colors.white;
 
 const kBlackColor = Colors.black;
