@@ -9,6 +9,8 @@ String currentUserID = '', token = '', JWT_SECRET = 'realestate-project', newUse
 
 var listingWithDiscount = [], listingForRent = [], listingForSale = [];
 
+var pickedFile;
+
 const kWhiteColor = Colors.white;
 
 const kBlackColor = Colors.black;

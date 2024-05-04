@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../consts.dart';
 import 'package:path/path.dart' as Path;
+import 'package:firebase_storage/firebase_storage.dart';
 
 import '../controllers/user_controller.dart';
 
@@ -20,8 +21,11 @@ class MyProfile extends StatefulWidget {
 
 class _MyProfileState extends State<MyProfile> {
   File? _image;
+  bool uploading = false;
   final picker = ImagePicker();
   var profilePic = prefs!.getString('avatarImage');
+  var newProfilePic;
+  var urlOfImageUploaded;
   String email='', username='', password='';
 
   TextEditingController usernameController = TextEditingController();
@@ -29,7 +33,7 @@ class _MyProfileState extends State<MyProfile> {
   TextEditingController passwordController = TextEditingController();
   bool _passwordVisible = false;
 
-  @override
+  // @override
   void initState() {
     super.initState();
     loadDetails();
@@ -44,12 +48,44 @@ class _MyProfileState extends State<MyProfile> {
     password = prefs!.getString('password')!;
   }
 
-  Future getPhotoFromGallery() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
+  startUpload(bool isUploading){
     setState(() {
+      uploading = isUploading;
+    });
+  }
+
+  Future getPhotoFromGallery() async {
+    //final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    setState(() async {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
+        print('_image: ${_image!.path}');
+        startUpload(true);
+        print("Path.basename(_image!.path):${Path.basename(_image!.path)}");
+        if (_image != null) {
+          // Reference ref = FirebaseStorage.instance.ref().child(Path.basename(_image!.path));
+          Reference ref = FirebaseStorage.instance.ref().child(Path.basename(_image!.path));
+          UploadTask uploadTask = ref.putFile(_image!);
+          TaskSnapshot snapshot = await uploadTask.whenComplete(() {
+              print('New profile picture uploaded');
+              startUpload(false);
+          });
+          urlOfImageUploaded = await snapshot.ref.getDownloadURL();
+
+          print("urlOfImageUploaded: $urlOfImageUploaded");
+          newProfilePic = urlOfImageUploaded;
+          // print("profilePic:$profilePic, newProfilePic:$newProfilePic");
+
+          var deletedImage = await FirebaseStorage.instance.refFromURL(profilePic!);
+          deletedImage.delete().whenComplete(() {
+            print('Old profile picture deleted');
+            profilePic = urlOfImageUploaded;
+          });
+          prefs.setString('avatarImage', urlOfImageUploaded);
+        }
+        updateProfile(username,email, password, newProfilePic);
       } else {
         print('No image selected.');
       }
@@ -57,11 +93,36 @@ class _MyProfileState extends State<MyProfile> {
   }
 
   Future photoFromCamera() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.camera, imageQuality: 100);
-
-    setState(() {
+    //final pickedFile = await picker.pickImage(source: ImageSource.camera, imageQuality: 100);
+    pickedFile = await picker.pickImage(source: ImageSource.camera, imageQuality: 100);
+    setState(() async {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
+        print('_image: ${_image!.path}');
+        startUpload(true);
+        print("Path.basename(_image!.path):${Path.basename(_image!.path)}");
+        if (_image != null) {
+          // Reference ref = FirebaseStorage.instance.ref().child(Path.basename(_image!.path));
+          Reference ref = FirebaseStorage.instance.ref().child(Path.basename(_image!.path));
+          UploadTask uploadTask = ref.putFile(_image!);
+          TaskSnapshot snapshot = await uploadTask.whenComplete(() {
+            print('New profile picture uploaded');
+            startUpload(false);
+          });
+          urlOfImageUploaded = await snapshot.ref.getDownloadURL();
+
+          print("urlOfImageUploaded: $urlOfImageUploaded");
+          newProfilePic = urlOfImageUploaded;
+          // print("profilePic:$profilePic, newProfilePic:$newProfilePic");
+
+          var deletedImage = await FirebaseStorage.instance.refFromURL(profilePic!);
+          deletedImage.delete().whenComplete(() {
+            print('Old profile picture deleted');
+            profilePic = urlOfImageUploaded;
+          });
+          prefs.setString('avatarImage', urlOfImageUploaded);
+        }
+        updateProfile(username,email, password, newProfilePic);
       } else {
         print('No image selected.');
       }
@@ -73,9 +134,9 @@ class _MyProfileState extends State<MyProfile> {
     final updatedUser = UserUpdate(username: uname, email: email, password: pwd, avatar:profilePic);
     final success = await UserController.updateUser(updatedUser);
     if(success == true){
-      updateDialog('Congratulations!', 'Your profile has been updated successfully!');
+      updateDialogBox('Congratulations!', 'Your profile has been updated successfully!');
     } else{
-      updateDialog('Warning!','Your profile did not update!');
+      dialogBox('Warning!','Your profile did not update!');
     }
   }
 
@@ -109,19 +170,27 @@ class _MyProfileState extends State<MyProfile> {
         ),
         backgroundColor: kBackgroundColor,
       ),
-      body: SingleChildScrollView(
+      body: uploading == false ? SingleChildScrollView(
         child: Padding(
-            padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
-            child: Center(
+          padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
+          child: Center(
               child: Column(
                 children: [
                   ElevatedButton(
-                      onPressed: photoSelector,
-                      child: Image.network(
-                        profilePic!,
-                        height: 100,
-                      ),
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent)
+                    onPressed: photoSelector,
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        urlOfImageUploaded != null ? Image.network(
+                          urlOfImageUploaded,
+                          height: 100,
+                        ) : Image.network(
+                          profilePic!,
+                          height: 100,
+                        ),
+                      ],
+                    )
                   ),
                   const SizedBox(height:40),
                   TextField(
@@ -158,13 +227,13 @@ class _MyProfileState extends State<MyProfile> {
                     },
                     style: const TextStyle(color: kThemeBlueColor),
                     decoration: passwordInputDecoration(
-                        'Enter your password',
-                        _passwordVisible,
-                            (){
-                          setState(() {
-                            _passwordVisible = !_passwordVisible;
-                          });
-                        }
+                      'Enter your password',
+                      _passwordVisible,
+                          (){
+                        setState(() {
+                          _passwordVisible = !_passwordVisible;
+                        });
+                      }
                     ),
                   ),
                   const SizedBox(height:40),
@@ -199,6 +268,15 @@ class _MyProfileState extends State<MyProfile> {
               ),
             )
         ),
+      ) :
+      Center(
+        child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(kLightTitleColor),
+          backgroundColor: Colors.transparent,
+          strokeWidth: 5,
+          // semanticsLabel: 'Uploading...',
+          // strokeAlign: 1,
+        ),
       ),
     );
   }
@@ -209,41 +287,75 @@ class _MyProfileState extends State<MyProfile> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Row(
+          title: const Row(
             children: [
               Text('Select A ', style: kSideMenuLightTextStyle),
               Text('Photo Source', style: kSideMenuDarkTextStyle)
             ],
           ),
-          content: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              TextButton(
-                child: const Text('Gallery', style: kWhiteBoldTextStyle),
-                onPressed: () {
-                  getPhotoFromGallery();
-                },
-                style: TextButton.styleFrom(
-                  backgroundColor: kLightTitleColor,
-                ),
-              ),
-              TextButton(
-                child: const Text('Photo', style: kWhiteBoldTextStyle),
-                onPressed: () {
-                  photoFromCamera();
-                },
-                style: TextButton.styleFrom(
-                  backgroundColor: kDarkTitleColor,
-                ),
-              ),
-            ],
-          ),
+          // content: Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //   children: [
+          //     TextButton(
+          //       child: const Text('Gallery', style: kWhiteBoldTextStyle),
+          //       // onPressed: () {
+          //       //   getPhotoFromGallery();
+          //       //   Navigator.of(context).pop();
+          //       // }
+          //       // ,
+          //       onPressed: getPhotoFromGallery,
+          //       style: TextButton.styleFrom(
+          //         backgroundColor: kLightTitleColor,
+          //       ),
+          //     ),
+          //     TextButton(
+          //       child: const Text('Photo', style: kWhiteBoldTextStyle),
+          //       onPressed: photoFromCamera,
+          //       style: TextButton.styleFrom(
+          //         backgroundColor: kDarkTitleColor,
+          //       ),
+          //     ),
+          //   ],
+          // ),
           actions: <Widget>[
-            TextButton(
-              child: const Text('Cancel', style: TextStyle(color: kDarkTitleColor),),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    getPhotoFromGallery();
+                    Navigator.of(context).pop();
+                  },
+                  // onPressed: getPhotoFromGallery,
+                  style: TextButton.styleFrom(
+                    backgroundColor: kLightTitleColor,
+                  ),
+                  child: const Text('Gallery', style: kWhiteBoldTextStyle),
+                ),
+                // SizedBox(width: 12,),
+                TextButton(
+                  onPressed: () {
+                    photoFromCamera();
+                    Navigator.of(context).pop();
+                  },
+                  // onPressed: photoFromCamera,
+                  style: TextButton.styleFrom(
+                    backgroundColor: kDarkTitleColor,
+                  ),
+                  child: const Text('Photo', style: kWhiteBoldTextStyle),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  child: const Text('Cancel', style: TextStyle(color: kDarkTitleColor),),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
             ),
           ],
         );
@@ -278,7 +390,7 @@ class _MyProfileState extends State<MyProfile> {
     );
   }
 
-  Future<void> updateDialog(String title, String bodyText) async {
+  Future<void> dialogBox(String title, String bodyText) async {
     // String AlertText = bodyText;
     // String AlertTitle = title;
     return showDialog<void>(
@@ -299,6 +411,38 @@ class _MyProfileState extends State<MyProfile> {
               child: const Text('OK', style: TextStyle(color: kLightTitleColor),),
               onPressed: () {
                 Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> updateDialogBox(String title, String bodyText) async {
+    // String AlertText = bodyText;
+    // String AlertTitle = title;
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title, style: TextStyle(color: kDarkTitleColor, fontSize: 20.0)),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(bodyText, style: TextStyle(color: kLightTitleColor)),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK', style: TextStyle(color: kLightTitleColor),),
+              onPressed: () {
+                Navigator.of(context).pop();
+                setState(() {
+
+                });
               },
             ),
           ],
