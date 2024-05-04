@@ -61,9 +61,7 @@ class _MyProfileState extends State<MyProfile> {
     setState(() async {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
-        print('_image: ${_image!.path}');
         startUpload(true);
-        print("Path.basename(_image!.path):${Path.basename(_image!.path)}");
         if (_image != null) {
           // Reference ref = FirebaseStorage.instance.ref().child(Path.basename(_image!.path));
           Reference ref = FirebaseStorage.instance.ref().child(Path.basename(_image!.path));
@@ -73,12 +71,8 @@ class _MyProfileState extends State<MyProfile> {
               startUpload(false);
           });
           urlOfImageUploaded = await snapshot.ref.getDownloadURL();
-
-          print("urlOfImageUploaded: $urlOfImageUploaded");
           newProfilePic = urlOfImageUploaded;
-          // print("profilePic:$profilePic, newProfilePic:$newProfilePic");
-
-          var deletedImage = await FirebaseStorage.instance.refFromURL(profilePic!);
+          var deletedImage = FirebaseStorage.instance.refFromURL(profilePic!);
           deletedImage.delete().whenComplete(() {
             print('Old profile picture deleted');
             profilePic = urlOfImageUploaded;
@@ -98,11 +92,8 @@ class _MyProfileState extends State<MyProfile> {
     setState(() async {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
-        print('_image: ${_image!.path}');
         startUpload(true);
-        print("Path.basename(_image!.path):${Path.basename(_image!.path)}");
         if (_image != null) {
-          // Reference ref = FirebaseStorage.instance.ref().child(Path.basename(_image!.path));
           Reference ref = FirebaseStorage.instance.ref().child(Path.basename(_image!.path));
           UploadTask uploadTask = ref.putFile(_image!);
           TaskSnapshot snapshot = await uploadTask.whenComplete(() {
@@ -110,12 +101,8 @@ class _MyProfileState extends State<MyProfile> {
             startUpload(false);
           });
           urlOfImageUploaded = await snapshot.ref.getDownloadURL();
-
-          print("urlOfImageUploaded: $urlOfImageUploaded");
           newProfilePic = urlOfImageUploaded;
-          // print("profilePic:$profilePic, newProfilePic:$newProfilePic");
-
-          var deletedImage = await FirebaseStorage.instance.refFromURL(profilePic!);
+          var deletedImage = FirebaseStorage.instance.refFromURL(profilePic!);
           deletedImage.delete().whenComplete(() {
             print('Old profile picture deleted');
             profilePic = urlOfImageUploaded;
