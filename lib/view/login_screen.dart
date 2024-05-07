@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: kBackgroundColor,
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(24, 24,24, 0),
+        padding: const EdgeInsets.only(left:24.0,right:24.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,

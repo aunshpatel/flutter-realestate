@@ -35,6 +35,26 @@ class UserController {
     }
   }
 
+  static Future<Object> registerUser(UserRegister user) async{
+    final url = Uri.parse('$apiLinkConstant/auth/signup');
+    final response = await http.post(
+      url,
+      headers: {"Content-Type": "application/json"},
+      body: json.encode(user.toJson()),
+    );
+    if (response.statusCode == 200) {
+      // Login successful
+      print('User registered successfully');
+      return 'success';
+    } else {
+      // Login failed
+      var message = json.decode(response.body);
+      // print("Error: ${message['message']}");
+      print("User registration failed");
+      return message['message'];
+    }
+  }
+
   static Future<bool> updateUser(UserUpdate user) async {
     prefs = await SharedPreferences.getInstance();
     token = prefs.getString("token")!;

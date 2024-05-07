@@ -91,6 +91,26 @@ class _SideDrawerState extends State<SideDrawer> {
                   },
                 ),
               ) : SizedBox(),
+              isLoggedIn == false ? Container(
+                decoration: const BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(
+                          color: kBlackColor,
+                        )
+                    )
+                ),
+                child: ListTile(
+                  title: const Wrap(
+                    children: [
+                      Text('Regist', style:kSideMenuLightTextStyle),
+                      Text('ration', style:kSideMenuDarkTextStyle,),
+                    ],
+                  ),
+                  onTap: (){
+                    Navigator.pushNamed(context, '/registration_screen');
+                  },
+                ),
+              ) : SizedBox(),
             ],
           ),
         )

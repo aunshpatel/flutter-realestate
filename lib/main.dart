@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:realestate/view/login_screen.dart';
 import 'package:realestate/view/my_profile.dart';
+import 'package:realestate/view/registration_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'api.dart';
 import 'consts.dart';
@@ -57,6 +58,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         '/main_screen':(context) => const MainScreen(),
         '/login_screen':(context) => const LoginScreen(),
+        '/registration_screen':(context) => const RegistrationScreen(),
         '/profile_page':(context) => const MyProfile(),
       },
     );
