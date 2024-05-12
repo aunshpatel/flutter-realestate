@@ -30,6 +30,7 @@ class UserController {
       return true;
     } else {
       // Login failed
+      print("Login failed");
       return false;
     }
   }
@@ -42,11 +43,14 @@ class UserController {
       body: json.encode(user.toJson()),
     );
     if (response.statusCode == 200) {
-      // Registration successful
+      // Login successful
+      print('User registered successfully');
       return 'success';
     } else {
-      // Registration failed
+      // Login failed
       var message = json.decode(response.body);
+      // print("Error: ${message['message']}");
+      print("User registration failed");
       return message['message'];
     }
   }
@@ -71,6 +75,7 @@ class UserController {
       return true;
     } else {
       // Update failed
+      print("Update failed");
       return false;
     }
   }
