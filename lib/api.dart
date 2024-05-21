@@ -9,7 +9,6 @@ Future<List<dynamic>> fetchSellListForShowing() async {
   if (response.statusCode == 200) {
     data = json.decode(response.body);
     print(data);
-
   } else {
     data = [];
     print('Failed to fetch data: ${response.statusCode}');
@@ -23,7 +22,6 @@ Future<List<dynamic>> fetchRentListForShowing() async {
   if (response.statusCode == 200) {
     data = json.decode(response.body);
     print(data);
-
   } else {
     data = [];
     print('Failed to fetch data: ${response.statusCode}');
@@ -37,10 +35,23 @@ Future<List<dynamic>> fetchDiscountListForShowing() async {
   if (response.statusCode == 200) {
     data = json.decode(response.body);
     print(data);
-
   } else {
     data = [];
     print('Failed to fetch data: ${response.statusCode}');
+  }
+  return data;
+}
+
+//Below API gets all listings of a logged in user
+Future<List<dynamic>> individualUserListing() async {
+  final List<dynamic> data;
+  final response = await http.get(Uri.parse('$apiLinkConstant/user/listings/$currentUserID'));
+  if (response.statusCode == 200) {
+    data = json.decode(response.body);
+  } else {
+    data = [];
+    print('Failed to fetch data: ${response.statusCode}');
+    print('${response.body}');
   }
   return data;
 }

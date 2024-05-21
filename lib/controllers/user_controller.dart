@@ -21,9 +21,10 @@ class UserController {
       var userInfo = jsonDecode(response.body);
       var setCookieValue = response.headers['set-cookie']?.split(';');
       token = setCookieValue![0];
-      currentUserID = userInfo["_id"];
+      // prefs.setString('token', token.split("=")[1]);
       prefs.setString('token', token);
       prefs.setString('userID', userInfo["_id"]);
+      currentUserID = prefs!.getString('userID')!;
       prefs.setString('username', userInfo["username"]);
       prefs.setString('email', userInfo["email"]);
       prefs.setString('avatarImage', userInfo["avatar"]);
