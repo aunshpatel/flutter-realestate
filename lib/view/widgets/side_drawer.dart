@@ -18,6 +18,7 @@ class _SideDrawerState extends State<SideDrawer> {
           padding: const EdgeInsets.all(10.0),
           child: ListView(
             children: [
+              //Image
               Container(
                 decoration: const BoxDecoration(
                   border: Border(
@@ -31,6 +32,7 @@ class _SideDrawerState extends State<SideDrawer> {
                     child: Image.asset('images/realestate-high-resolution-logo.jpeg')
                 )
               ),
+              //Home Screen
               Container(
                 decoration: const BoxDecoration(
                   border: Border(
@@ -51,26 +53,7 @@ class _SideDrawerState extends State<SideDrawer> {
                   },
                 ),
               ),
-              isLoggedIn == true ? Container(
-                decoration: const BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: kBlackColor,
-                    )
-                  )
-                ),
-                child: ListTile(
-                  title: const Wrap(
-                    children: [
-                      Text('My ', style:kSideMenuLightTextStyle),
-                      Text('Profile', style:kSideMenuDarkTextStyle,),
-                    ],
-                  ),
-                  onTap: (){
-                    Navigator.pushNamed(context, '/profile_page');
-                  },
-                ),
-              ) : SizedBox(),
+              //My Listings
               isLoggedIn == true ? Container(
                 decoration: const BoxDecoration(
                     border: Border(
@@ -91,6 +74,28 @@ class _SideDrawerState extends State<SideDrawer> {
                   },
                 ),
               ) : SizedBox(),
+              //My Profile
+              isLoggedIn == true ? Container(
+                decoration: const BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(
+                          color: kBlackColor,
+                        )
+                    )
+                ),
+                child: ListTile(
+                  title: const Wrap(
+                    children: [
+                      Text('My ', style:kSideMenuLightTextStyle),
+                      Text('Profile', style:kSideMenuDarkTextStyle,),
+                    ],
+                  ),
+                  onTap: (){
+                    Navigator.pushNamed(context, '/profile_page');
+                  },
+                ),
+              ) : SizedBox(),
+              //Login
               isLoggedIn == false ? Container(
                 decoration: const BoxDecoration(
                   border: Border(
@@ -111,6 +116,7 @@ class _SideDrawerState extends State<SideDrawer> {
                   },
                 ),
               ) : SizedBox(),
+              //Registration
               isLoggedIn == false ? Container(
                 decoration: const BoxDecoration(
                     border: Border(
