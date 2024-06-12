@@ -22,9 +22,15 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   getListings() async{
-    listingForSale = await fetchSellListForShowing();
-    listingWithDiscount = await fetchDiscountListForShowing();
-    listingForRent = await fetchRentListForShowing();
+    final listingForSaleData = await fetchSellListForShowing();
+    final listingWithDiscountData = await fetchDiscountListForShowing();
+    final listingForRentData = await fetchRentListForShowing();
+
+    setState(() {
+      listingForSale = listingForSaleData;
+      listingWithDiscount = listingWithDiscountData;
+      listingForRent = listingForRentData;
+    });
   }
   @override
   Widget build(BuildContext context) {
@@ -77,6 +83,7 @@ class _MainScreenState extends State<MainScreen> {
               (listingForRent.isEmpty && listingWithDiscount.isEmpty && listingForSale.isEmpty) ? SizedBox(
                 height: MediaQuery.of(context).size.height - 300,
                 child: const Center(child: Text("No Listings", style: TextStyle(fontSize: 30, color: kDarkTextColor),),)
+                // child: Center(child: CircularProgressIndicator(),),
               ) : const SizedBox(height: 0,),
 
               //Expanded for properties with discount

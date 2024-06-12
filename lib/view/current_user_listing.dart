@@ -19,7 +19,10 @@ class _CurrentUserListingsState extends State<CurrentUserListings> {
   }
 
   getListings() async{
-    currentUserListings = await individualUserListing();
+    final currentUserListingsData = await individualUserListing();
+    setState(() {
+      currentUserListings = currentUserListingsData;
+    });
   }
   @override
   Widget build(BuildContext context) {
