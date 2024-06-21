@@ -129,38 +129,40 @@ class _MyProfileState extends State<MyProfile> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      endDrawerEnableOpenDragGesture: false,
-      drawer: const SideDrawer(),
-      appBar: AppBar(
-        leading: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-              icon: const Icon(Icons.menu),
-              color: kDarkTitleColor,
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-            );
-          },
-        ),
-        actions: <Widget>[
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        endDrawerEnableOpenDragGesture: false,
+        drawer: const SideDrawer(),
+        appBar: AppBar(
+          leading: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: const Icon(Icons.menu),
+                color: kDarkTitleColor,
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+              );
+            },
+          ),
+          actions: <Widget>[
 
-        ],
-        centerTitle: true,
-        title: const Wrap(
-          children: [
-            Text('My ', style:TextStyle(color: kLightTitleColor),),
-            Text('Profile', style:TextStyle(color: kDarkTitleColor),),
           ],
+          centerTitle: true,
+          title: const Wrap(
+            children: [
+              Text('My ', style:TextStyle(color: kLightTitleColor),),
+              Text('Profile', style:TextStyle(color: kDarkTitleColor),),
+            ],
+          ),
+          backgroundColor: kBackgroundColor,
         ),
-        backgroundColor: kBackgroundColor,
-      ),
-      body: uploading == false ? SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
-          child: Center(
+        body: uploading == false ? SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
+            child: Center(
               child: Column(
                 children: [
                   ElevatedButton(
@@ -214,13 +216,13 @@ class _MyProfileState extends State<MyProfile> {
                     },
                     style: const TextStyle(color: kThemeBlueColor),
                     decoration: passwordInputDecoration(
-                      'Enter your password',
-                      _passwordVisible,
-                          (){
-                        setState(() {
-                          _passwordVisible = !_passwordVisible;
-                        });
-                      }
+                        'Enter your password',
+                        _passwordVisible,
+                            (){
+                          setState(() {
+                            _passwordVisible = !_passwordVisible;
+                          });
+                        }
                     ),
                   ),
                   const SizedBox(height:40),
@@ -254,17 +256,18 @@ class _MyProfileState extends State<MyProfile> {
                 ],
               ),
             )
+          ),
+        ) :
+        const Center(
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(kLightTitleColor),
+            backgroundColor: Colors.transparent,
+            strokeWidth: 5,
+            // semanticsLabel: 'Uploading...',
+            // strokeAlign: 1,
+          ),
         ),
-      ) :
-      Center(
-        child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(kLightTitleColor),
-          backgroundColor: Colors.transparent,
-          strokeWidth: 5,
-          // semanticsLabel: 'Uploading...',
-          // strokeAlign: 1,
-        ),
-      ),
+      )
     );
   }
 

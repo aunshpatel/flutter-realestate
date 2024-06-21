@@ -26,8 +26,10 @@ class _CurrentUserListingsState extends State<CurrentUserListings> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        endDrawerEnableOpenDragGesture: false,
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        drawerEnableOpenDragGesture: true,
         drawer: const SideDrawer(),
         appBar: AppBar(
           leading: Builder(
@@ -56,7 +58,7 @@ class _CurrentUserListingsState extends State<CurrentUserListings> {
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.fromLTRB(24, 24, 24, 0),
+            padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
             child: Column(
               children: [
                 currentUserListings.isNotEmpty ? Padding(
@@ -122,6 +124,7 @@ class _CurrentUserListingsState extends State<CurrentUserListings> {
             ),
           ),
         )
+      )
     );
   }
 }
