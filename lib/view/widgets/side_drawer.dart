@@ -53,6 +53,7 @@ class _SideDrawerState extends State<SideDrawer> {
                   },
                 ),
               ),
+              //if user is logged in
               if (isLoggedIn) ...[
                 //My Listings
                 Container(
@@ -72,6 +73,28 @@ class _SideDrawerState extends State<SideDrawer> {
                     ),
                     onTap: (){
                       Navigator.pushNamed(context, '/current_user_listing');
+                    },
+                  ),
+                ),
+                //Create New Listing
+                Container(
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: kBlackColor,
+                      )
+                    )
+                  ),
+                  child: ListTile(
+                    title: const Wrap(
+                      children: [
+                        Text('Create ', style:kSideMenuLightTextStyle),
+                        Text('New ', style:kSideMenuLightTextStyle),
+                        Text('Listing', style:kSideMenuDarkTextStyle,),
+                      ],
+                    ),
+                    onTap: (){
+                      Navigator.pushNamed(context, '/create_new_listing');
                     },
                   ),
                 ),
@@ -98,6 +121,7 @@ class _SideDrawerState extends State<SideDrawer> {
                 ),
               ],
               const SizedBox(),
+              //if user is not logged in
               if (!isLoggedIn) ...[
                 //Login
                 Container(
