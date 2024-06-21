@@ -53,90 +53,96 @@ class _SideDrawerState extends State<SideDrawer> {
                   },
                 ),
               ),
-              //My Listings
-              isLoggedIn == true ? Container(
-                decoration: const BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                          color: kBlackColor,
-                        )
-                    )
-                ),
-                child: ListTile(
-                  title: const Wrap(
-                    children: [
-                      Text('My ', style:kSideMenuLightTextStyle),
-                      Text('Listings', style:kSideMenuDarkTextStyle,),
-                    ],
+              if (isLoggedIn) ...[
+                //My Listings
+                Container(
+                  decoration: const BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                            color: kBlackColor,
+                          )
+                      )
                   ),
-                  onTap: (){
-                    Navigator.pushNamed(context, '/current_user_listing');
-                  },
-                ),
-              ) : SizedBox(),
-              //My Profile
-              isLoggedIn == true ? Container(
-                decoration: const BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                          color: kBlackColor,
-                        )
-                    )
-                ),
-                child: ListTile(
-                  title: const Wrap(
-                    children: [
-                      Text('My ', style:kSideMenuLightTextStyle),
-                      Text('Profile', style:kSideMenuDarkTextStyle,),
-                    ],
+                  child: ListTile(
+                    title: const Wrap(
+                      children: [
+                        Text('My ', style:kSideMenuLightTextStyle),
+                        Text('Listings', style:kSideMenuDarkTextStyle,),
+                      ],
+                    ),
+                    onTap: (){
+                      Navigator.pushNamed(context, '/current_user_listing');
+                    },
                   ),
-                  onTap: (){
-                    Navigator.pushNamed(context, '/profile_page');
-                  },
                 ),
-              ) : SizedBox(),
-              //Login
-              isLoggedIn == false ? Container(
-                decoration: const BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: kBlackColor,
-                    )
-                  )
-                ),
-                child: ListTile(
-                  title: const Wrap(
-                    children: [
-                      Text('Log', style:kSideMenuLightTextStyle),
-                      Text('in', style:kSideMenuDarkTextStyle,),
-                    ],
+                //My Profile
+                Container(
+                  decoration: const BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                            color: kBlackColor,
+                          )
+                      )
                   ),
-                  onTap: (){
-                    Navigator.pushNamed(context, '/login_screen');
-                  },
-                ),
-              ) : SizedBox(),
-              //Registration
-              isLoggedIn == false ? Container(
-                decoration: const BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                          color: kBlackColor,
-                        )
-                    )
-                ),
-                child: ListTile(
-                  title: const Wrap(
-                    children: [
-                      Text('Regist', style:kSideMenuLightTextStyle),
-                      Text('ration', style:kSideMenuDarkTextStyle,),
-                    ],
+                  child: ListTile(
+                    title: const Wrap(
+                      children: [
+                        Text('My ', style:kSideMenuLightTextStyle),
+                        Text('Profile', style:kSideMenuDarkTextStyle,),
+                      ],
+                    ),
+                    onTap: (){
+                      Navigator.pushNamed(context, '/profile_page');
+                    },
                   ),
-                  onTap: (){
-                    Navigator.pushNamed(context, '/registration_screen');
-                  },
                 ),
-              ) : SizedBox(),
+              ],
+              const SizedBox(),
+              if (!isLoggedIn) ...[
+                //Login
+                Container(
+                  decoration: const BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                            color: kBlackColor,
+                          )
+                      )
+                  ),
+                  child: ListTile(
+                    title: const Wrap(
+                      children: [
+                        Text('Log', style:kSideMenuLightTextStyle),
+                        Text('in', style:kSideMenuDarkTextStyle,),
+                      ],
+                    ),
+                    onTap: (){
+                      Navigator.pushNamed(context, '/login_screen');
+                    },
+                  ),
+                ),
+                //My Profile
+                Container(
+                  decoration: const BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                            color: kBlackColor,
+                          )
+                      )
+                  ),
+                  child: ListTile(
+                    title: const Wrap(
+                      children: [
+                        Text('Regist', style:kSideMenuLightTextStyle),
+                        Text('ration', style:kSideMenuDarkTextStyle,),
+                      ],
+                    ),
+                    onTap: (){
+                      Navigator.pushNamed(context, '/registration_screen');
+                    },
+                  ),
+                )
+              ],
+              const SizedBox(),
             ],
           ),
         )
