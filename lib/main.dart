@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:realestate/view/create_new_listing.dart';
 import 'package:realestate/view/current_user_listing.dart';
 import 'package:realestate/view/login_screen.dart';
 import 'package:realestate/view/my_profile.dart';
@@ -62,7 +63,7 @@ class _MyAppState extends State<MyApp> {
         '/registration_screen':(context) => const RegistrationScreen(),
         '/profile_page':(context) => const MyProfile(),
         '/current_user_listing':(context) => const CurrentUserListings(),
-        '/create_new_listing':(context) => const CurrentUserListings(),
+        '/create_new_listing':(context) => const CreateNewListing(),
       },
     );
   }
