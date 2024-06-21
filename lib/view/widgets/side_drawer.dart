@@ -94,7 +94,7 @@ class _SideDrawerState extends State<SideDrawer> {
                       ],
                     ),
                     onTap: (){
-                      Navigator.pushNamed(context, '/create_new_listing');
+                      Navigator.pushNamed(context, '/create_a_listing');
                     },
                   ),
                 ),
