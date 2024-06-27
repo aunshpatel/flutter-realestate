@@ -123,16 +123,16 @@ class _MainScreenState extends State<MainScreen> {
                                                     children: [
                                                       Image.network(listingWithDiscount[index]['imageUrls'][0], height: 80,),
                                                       Text(listingWithDiscount[index]['name'], style: kHomePagePropertyTitle),
-                                                      Text(listingWithDiscount[index]['address'], style:kHomePagePropertyDesc),
-                                                      Text(listingWithDiscount[index]['description'], style:kHomePagePropertyDesc),
-                                                      Text('${listingWithDiscount[index]['bedrooms']} bedrooms, ${listingWithDiscount[index]['bathrooms']} bathrooms', style:kHomePagePropertyDesc),
+                                                      Text(listingWithDiscount[index]['address'], style:kRegularText),
+                                                      Text(listingWithDiscount[index]['description'], style:kRegularText),
+                                                      Text('${listingWithDiscount[index]['bedrooms']} bedrooms, ${listingWithDiscount[index]['bathrooms']} bathrooms', style:kRegularText),
                                                       listingWithDiscount[index]['discountPrice'] > 0 ? Row(
                                                         children: [
-                                                          Text('\u0024 ${listingWithDiscount[index]['regularPrice']}', style:kHomePagePropertyDescStrike,),
-                                                          Text(' \u0024 ${listingWithDiscount[index]['discountPrice']}', style:kHomePagePropertyDesc)
+                                                          Text('\u0024 ${listingWithDiscount[index]['regularPrice']}', style:kRegularTextStrike,),
+                                                          Text(' \u0024 ${listingWithDiscount[index]['discountPrice']}', style:kRegularText)
                                                         ],
-                                                      ) : Text('\u0024 ${listingWithDiscount[index]['regularPrice']}', style:kHomePagePropertyDesc),
-                                                      Text(listingWithDiscount[index]['furnished'], style:kHomePagePropertyDesc),
+                                                      ) : Text('\u0024 ${listingWithDiscount[index]['regularPrice']}', style:kRegularText),
+                                                      Text(listingWithDiscount[index]['furnished'], style:kRegularText),
                                                     ],
                                                   )
                                               ),
@@ -183,16 +183,16 @@ class _MainScreenState extends State<MainScreen> {
                                                   children: [
                                                     Image.network(listingForSale[index]['imageUrls'][0], height: 80,),
                                                     Text(listingForSale[index]['name'], style: kHomePagePropertyTitle),
-                                                    Text(listingForSale[index]['address'], style:kHomePagePropertyDesc),
-                                                    Text(listingForSale[index]['description'], style:kHomePagePropertyDesc),
-                                                    Text('${listingForSale[index]['bedrooms']} bedrooms, ${listingForSale[index]['bathrooms']} bathrooms', style:kHomePagePropertyDesc),
+                                                    Text(listingForSale[index]['address'], style:kRegularText),
+                                                    Text(listingForSale[index]['description'], style:kRegularText),
+                                                    Text('${listingForSale[index]['bedrooms']} bedrooms, ${listingForSale[index]['bathrooms']} bathrooms', style:kRegularText),
                                                     listingForSale[index]['discountPrice'] > 0 ? Row(
                                                       children: [
-                                                        Text('\u0024 ${listingForSale[index]['regularPrice']}', style:kHomePagePropertyDescStrike,),
-                                                        Text(' \u0024 ${listingForSale[index]['discountPrice']}', style:kHomePagePropertyDesc)
+                                                        Text('\u0024 ${listingForSale[index]['regularPrice']}', style:kRegularTextStrike,),
+                                                        Text(' \u0024 ${listingForSale[index]['discountPrice']}', style:kRegularText)
                                                       ],
-                                                    ) : Text('\u0024 ${listingForSale[index]['regularPrice']}', style:kHomePagePropertyDesc),
-                                                    Text(listingForSale[index]['furnished'], style:kHomePagePropertyDesc),
+                                                    ) : Text('\u0024 ${listingForSale[index]['regularPrice']}', style:kRegularText),
+                                                    Text(listingForSale[index]['furnished'], style:kRegularText),
                                                   ],
                                                 )
                                               ),
@@ -241,16 +241,16 @@ class _MainScreenState extends State<MainScreen> {
                                                 children: [
                                                   Image.network(listingForRent[index]['imageUrls'][0], height: 80,),
                                                   Text(listingForRent[index]['name'], style: kHomePagePropertyTitle),
-                                                  Text(listingForRent[index]['address'], style:kHomePagePropertyDesc),
-                                                  Text(listingForRent[index]['description'], style:kHomePagePropertyDesc),
-                                                  Text('${listingForRent[index]['bedrooms']} bedrooms, ${listingForRent[index]['bathrooms']} bathrooms', style:kHomePagePropertyDesc),
+                                                  Text(listingForRent[index]['address'], style:kRegularText),
+                                                  Text(listingForRent[index]['description'], style:kRegularText),
+                                                  Text('${listingForRent[index]['bedrooms']} bedrooms, ${listingForRent[index]['bathrooms']} bathrooms', style:kRegularText),
                                                   listingForRent[index]['discountPrice'] > 0 ? Row(
                                                     children: [
-                                                      Text('\u0024 ${listingForRent[index]['regularPrice']}', style:kHomePagePropertyDescStrike,),
-                                                      Text(' \u0024 ${listingForRent[index]['discountPrice']}', style:kHomePagePropertyDesc)
+                                                      Text('\u0024 ${listingForRent[index]['regularPrice']}', style:kRegularTextStrike,),
+                                                      Text(' \u0024 ${listingForRent[index]['discountPrice']}', style:kRegularText)
                                                     ],
-                                                  ) : Text('\u0024 ${listingForRent[index]['regularPrice']}', style:kHomePagePropertyDesc),
-                                                  Text(listingForRent[index]['furnished'], style:kHomePagePropertyDesc),
+                                                  ) : Text('\u0024 ${listingForRent[index]['regularPrice']}', style:kRegularText),
+                                                  Text(listingForRent[index]['furnished'], style:kRegularText),
                                                 ],
                                               )
                                           ),
