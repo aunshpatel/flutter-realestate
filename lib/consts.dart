@@ -36,12 +36,12 @@ const kHomePagePropertyTitle = TextStyle(
   fontSize: 18,
 );
 
-const kHomePagePropertyDesc = TextStyle(
+const kRegularText = TextStyle(
   fontWeight: FontWeight.normal,
   fontSize: 15,
 );
 
-const kHomePagePropertyDescStrike = TextStyle(
+const kRegularTextStrike = TextStyle(
   fontWeight: FontWeight.normal,
   decoration: TextDecoration.lineThrough,
   fontSize: 15,
@@ -79,6 +79,11 @@ const kDarkBoldTextStyle = TextStyle(
 
 const kLightSemiBoldTextStyle = TextStyle(
     color: kLightTitleColor,
+    fontSize: 16,
+    fontWeight:FontWeight.w500
+);
+
+const kSemiBoldRegularStyle = TextStyle(
     fontSize: 16,
     fontWeight:FontWeight.w500
 );
@@ -159,5 +164,18 @@ InputDecoration passwordInputDecoration(String hintText, bool _passwordVisible, 
       ),
       onPressed: toggle,
     ),
+  );
+}
+
+InputDecoration listingInputDecoration(String hintText) {
+  return InputDecoration(
+    hintText: hintText,
+    hintStyle: const TextStyle(color: kThemeBlueColor),
+    contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+    border: const OutlineInputBorder(
+      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+    ),
+    enabledBorder: kEnabledBorder,
+    focusedBorder: kFocusedBorder,
   );
 }
