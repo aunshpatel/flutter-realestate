@@ -92,16 +92,16 @@ class _CurrentUserListingsState extends State<CurrentUserListings> {
                                             children: [
                                               Image.network(currentUserListings[index]['imageUrls'][0], height: 80,),
                                               Text(currentUserListings[index]['name'], style: kHomePagePropertyTitle),
-                                              Text(currentUserListings[index]['address'], style:kHomePagePropertyDesc),
-                                              Text(currentUserListings[index]['description'], style:kHomePagePropertyDesc),
-                                              Text('${currentUserListings[index]['bedrooms']} bedrooms, ${currentUserListings[index]['bathrooms']} bathrooms', style:kHomePagePropertyDesc),
+                                              Text(currentUserListings[index]['address'], style:kRegularText),
+                                              Text(currentUserListings[index]['description'], style:kRegularText),
+                                              Text('${currentUserListings[index]['bedrooms']} bedrooms, ${currentUserListings[index]['bathrooms']} bathrooms', style:kRegularText),
                                               currentUserListings[index]['discountPrice'] > 0 ? Row(
                                                 children: [
-                                                  Text('\u0024 ${currentUserListings[index]['regularPrice']}', style:kHomePagePropertyDescStrike,),
-                                                  Text(' \u0024 ${currentUserListings[index]['discountPrice']}', style:kHomePagePropertyDesc)
+                                                  Text('\u0024 ${currentUserListings[index]['regularPrice']}', style:kRegularTextStrike,),
+                                                  Text(' \u0024 ${currentUserListings[index]['discountPrice']}', style:kRegularText)
                                                 ],
-                                              ) : Text('\u0024 ${currentUserListings[index]['regularPrice']}', style:kHomePagePropertyDesc),
-                                              Text(currentUserListings[index]['furnished'], style:kHomePagePropertyDesc),
+                                              ) : Text('\u0024 ${currentUserListings[index]['regularPrice']}', style:kRegularText),
+                                              Text(currentUserListings[index]['furnished'], style:kRegularText),
                                             ],
                                           )
                                         ),
