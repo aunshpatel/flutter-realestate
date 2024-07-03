@@ -32,7 +32,7 @@ class _MyProfileState extends State<MyProfile> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool _passwordVisible = false;
-
+  var pickedFile;
   // @override
   void initState() {
     super.initState();
