@@ -8,7 +8,6 @@ Future<List<dynamic>> fetchSellListForShowing() async {
   final response = await http.get(Uri.parse('$apiLinkConstant/listing/get?type=sell&limit=4'));
   if (response.statusCode == 200) {
     data = json.decode(response.body);
-    print(data);
   } else {
     data = [];
     print('Failed to fetch data: ${response.statusCode}');
@@ -21,7 +20,6 @@ Future<List<dynamic>> fetchRentListForShowing() async {
   final response = await http.get(Uri.parse('$apiLinkConstant/listing/get?type=rent&limit=4'));
   if (response.statusCode == 200) {
     data = json.decode(response.body);
-    print(data);
   } else {
     data = [];
     print('Failed to fetch data: ${response.statusCode}');
@@ -34,7 +32,6 @@ Future<List<dynamic>> fetchDiscountListForShowing() async {
   final response = await http.get(Uri.parse('$apiLinkConstant/listing/get?discount=true&limit=4'));
   if (response.statusCode == 200) {
     data = json.decode(response.body);
-    print(data);
   } else {
     data = [];
     print('Failed to fetch data: ${response.statusCode}');
