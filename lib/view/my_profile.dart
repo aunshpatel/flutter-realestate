@@ -283,30 +283,6 @@ class _MyProfileState extends State<MyProfile> {
               Text('Photo Source', style: kSideMenuDarkTextStyle)
             ],
           ),
-          // content: Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-          //   children: [
-          //     TextButton(
-          //       child: const Text('Gallery', style: kWhiteBoldTextStyle),
-          //       // onPressed: () {
-          //       //   getPhotoFromGallery();
-          //       //   Navigator.of(context).pop();
-          //       // }
-          //       // ,
-          //       onPressed: getPhotoFromGallery,
-          //       style: TextButton.styleFrom(
-          //         backgroundColor: kLightTitleColor,
-          //       ),
-          //     ),
-          //     TextButton(
-          //       child: const Text('Photo', style: kWhiteBoldTextStyle),
-          //       onPressed: photoFromCamera,
-          //       style: TextButton.styleFrom(
-          //         backgroundColor: kDarkTitleColor,
-          //       ),
-          //     ),
-          //   ],
-          // ),
           actions: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
