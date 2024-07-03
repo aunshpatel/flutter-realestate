@@ -39,6 +39,12 @@ const kRegularText = TextStyle(
   fontSize: 15,
 );
 
+const kWhiteBoldRegularText = TextStyle(
+  fontWeight: FontWeight.bold,
+  fontSize: 15,
+  color: Colors.white
+);
+
 const kRegularTextStrike = TextStyle(
   fontWeight: FontWeight.normal,
   decoration: TextDecoration.lineThrough,
