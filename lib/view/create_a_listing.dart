@@ -23,9 +23,11 @@ class _CreateAListingState extends State<CreateAListing> {
   TextEditingController bedroomsController = TextEditingController();
   TextEditingController bathroomsController = TextEditingController();
   TextEditingController parkingController = TextEditingController();
-  int _selectedValue = 0;
+  int forSaleOrRent = 2, bedrooms = 0, parkingSpaces = 0;
+  String listingName = '', description='', address='';
+  double regularPrice = 0.0, discountedPrice = 0.0, bathrooms = 0.0;
   bool isDiscountAvailable = false;
-  String dropdownValue = 'Furnished';
+  String interiorOfHouse = 'Furnished';
   final picker = ImagePicker();
   File? _image;
   var pickedFile;
@@ -147,7 +149,7 @@ class _CreateAListingState extends State<CreateAListing> {
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding:  const EdgeInsets.fromLTRB(14, 24, 0, 24),
+            padding:  const EdgeInsets.fromLTRB(10, 24, 10, 24),
             child: Column(
               children: [
                 Row(
@@ -165,7 +167,11 @@ class _CreateAListingState extends State<CreateAListing> {
                           TextField(
                             controller: nameController,
                             keyboardType: TextInputType.name,
-                            onChanged:(value){ },
+                            onChanged:(value){
+                              setState(() {
+                                listingName = value;
+                              });
+                            },
                             style: kSemiBoldRegularStyle,
                             decoration: listingInputDecoration('Name of Listing',),
                           ),
@@ -177,7 +183,11 @@ class _CreateAListingState extends State<CreateAListing> {
                             controller: descriptionController,
                             keyboardType: TextInputType.multiline,
                             maxLines: 6,
-                            onChanged:(value){ },
+                            onChanged:(value){
+                              setState(() {
+                                description = value;
+                              });
+                            },
                             style: kSemiBoldRegularStyle,
                             decoration: listingInputDecoration('Description'),
                           ),
@@ -188,7 +198,11 @@ class _CreateAListingState extends State<CreateAListing> {
                           TextField(
                             controller: addressController,
                             keyboardType: TextInputType.streetAddress,
-                            onChanged:(value){ },
+                            onChanged:(value){
+                              setState(() {
+                                address = value;
+                              });
+                            },
                             style: kSemiBoldRegularStyle,
                             decoration: listingInputDecoration('Address',),
                           ),
@@ -209,10 +223,10 @@ class _CreateAListingState extends State<CreateAListing> {
                                     padding: const EdgeInsets.only(top: 2),
                                     child: Radio(
                                       value: 1,
-                                      groupValue: _selectedValue,
+                                      groupValue: forSaleOrRent,
                                       onChanged: (int? value) {
                                         setState(() {
-                                          _selectedValue = value!;
+                                          forSaleOrRent = value!;
                                         });
                                       },
                                     ),
@@ -227,10 +241,10 @@ class _CreateAListingState extends State<CreateAListing> {
                                     padding: const EdgeInsets.only(top: 2),
                                     child: Radio(
                                       value: 2,
-                                      groupValue: _selectedValue,
+                                      groupValue: forSaleOrRent,
                                       onChanged: (int? value) {
                                         setState(() {
-                                          _selectedValue = value!;
+                                          forSaleOrRent = value!;
                                         });
                                       },
                                     ),
@@ -264,7 +278,7 @@ class _CreateAListingState extends State<CreateAListing> {
                             textInputAction: TextInputAction.done,
                             onChanged:(value){ },
                             style: kSemiBoldRegularStyle,
-                            decoration: listingInputDecoration('Regular Price',),
+                            decoration: forSaleOrRent == 1 ? listingInputDecoration('Regular Price',) : listingInputDecoration('Regular Rent',),
                           ),
                           const SizedBox(
                             height: 17.5,
@@ -274,9 +288,13 @@ class _CreateAListingState extends State<CreateAListing> {
                             TextField(
                               controller: discountedPriceController,
                               keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
-                              onChanged:(value){ },
+                              onChanged:(value){
+                                setState(() {
+                                  discountedPrice = value as double;
+                                });
+                              },
                               style: kSemiBoldRegularStyle,
-                              decoration: listingInputDecoration('Discounted Price',),
+                              decoration: forSaleOrRent == 1 ? listingInputDecoration('Discounted Price',) : listingInputDecoration('Discounted Rent',),
                             ),
                             const SizedBox(
                               height: 15.0,
@@ -287,7 +305,11 @@ class _CreateAListingState extends State<CreateAListing> {
                             controller: bedroomsController,
                             keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
                             textInputAction: TextInputAction.done,
-                            onChanged:(value){ },
+                            onChanged:(value){
+                              setState(() {
+                                bedrooms = value as int;
+                              });
+                            },
                             style: kSemiBoldRegularStyle,
                             decoration: listingInputDecoration('Bedrooms',),
                           ),
@@ -299,7 +321,11 @@ class _CreateAListingState extends State<CreateAListing> {
                             controller: bathroomsController,
                             keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
                             textInputAction: TextInputAction.done,
-                            onChanged:(value){ },
+                            onChanged:(value){
+                              setState(() {
+                                bathrooms = value as double;
+                              });
+                            },
                             style: kSemiBoldRegularStyle,
                             decoration: listingInputDecoration('Bathrooms',),
                           ),
@@ -311,9 +337,13 @@ class _CreateAListingState extends State<CreateAListing> {
                             controller: parkingController,
                             keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
                             textInputAction: TextInputAction.done,
-                            onChanged:(value){ },
+                            onChanged:(value){
+                              setState(() {
+                                parkingSpaces = value as int;
+                              });
+                            },
                             style: kSemiBoldRegularStyle,
-                            decoration: listingInputDecoration('Parking Spaces',),
+                            decoration: listingInputDecoration('Parking Spot(s)',),
                           ),
                           const SizedBox(
                             height: 17.5,
@@ -322,7 +352,7 @@ class _CreateAListingState extends State<CreateAListing> {
                           Padding(
                             padding: const EdgeInsets.only(left: 10),
                             child: DropdownButton(
-                              value: dropdownValue,
+                              value: interiorOfHouse,
                               icon: const Icon(Icons.keyboard_arrow_down),
                               items: items.map((String items) {
                                 return DropdownMenuItem(
@@ -332,7 +362,7 @@ class _CreateAListingState extends State<CreateAListing> {
                               }).toList(),
                               onChanged: (String? newValue) {
                                 setState(() {
-                                  dropdownValue = newValue!;
+                                  interiorOfHouse = newValue!;
                                 });
                               },
                             ),
@@ -340,7 +370,7 @@ class _CreateAListingState extends State<CreateAListing> {
                         ],
                       ),
                     ),
-                    const SizedBox(width: 15,),
+                    const SizedBox(width: 10,),
                     Expanded(
                       flex: 4,
                       child:Column(
@@ -349,7 +379,7 @@ class _CreateAListingState extends State<CreateAListing> {
                           MaterialButton(
                             onPressed: photoSelector,
                             color: kDarkTitleColor,
-                            child: const Text('Select Photos',style: kWhiteBoldRegularText,),
+                            child: const Text('Upload Photos',style: kWhiteBoldRegularText,),
                           ),
                         ],
                       )
@@ -357,7 +387,7 @@ class _CreateAListingState extends State<CreateAListing> {
                   ],
                 ),
                 const SizedBox(
-                  height: 17.5,
+                  height: 17,
                 ),
                 RoundedButton(
                   colour:kDarkTitleColor,
