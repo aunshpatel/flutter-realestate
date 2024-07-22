@@ -37,16 +37,24 @@ class _MyAppState extends State<MyApp> {
   }
   loginFunction() async{
     prefs = await SharedPreferences.getInstance();
-    isLoggedIn = prefs.getBool('isLoggedIn')!;
+    isLoggedIn = prefs.getBool('isLoggedIn')! || false;
     loginEmailID = prefs.getString('email') ?? '';
     loginPassword = prefs.getString('password') ?? '';
 
-    final user = UserLogin(email: loginEmailID, password: loginPassword);
-    final success = await UserController.loginUser(user);
-    setState(() {
-      isLoggedIn = true;
-    });
-    prefs.setBool('isLoggedIn', isLoggedIn);
+    if(isLoggedIn == true){
+      final user = UserLogin(email: loginEmailID, password: loginPassword);
+      final success = await UserController.loginUser(user);
+      setState(() {
+        isLoggedIn = true;
+      });
+      prefs.setBool('isLoggedIn', isLoggedIn);
+    }
+    else{
+      setState(() {
+        isLoggedIn = false;
+      });
+      prefs.setBool('isLoggedIn', isLoggedIn);
+    }
   }
   @override
   Widget build(BuildContext context) {

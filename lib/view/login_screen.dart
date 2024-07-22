@@ -118,12 +118,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     try{
                       final user = UserLogin(email: emailController.text, password: passwordController.text);
                       final success = await UserController.loginUser(user);
-                      setState(() {
-                        isLoggedIn = true;
-                      });
-                      prefs.setBool('isLoggedIn', isLoggedIn);
-                      _loginMessage();
-                      print("success: $success");
+                      if (success == true){
+                        setState(() {
+                          isLoggedIn = true;
+                        });
+                        prefs.setBool('isLoggedIn', isLoggedIn);
+                        _loginMessage();
+                      }
+                      else{
+                        commonAlertBox(context, 'WARNING!', 'Your email id or password is incorrect, please try again!');
+                      }
+                      print("success login page try catch: $success");
                     } catch(e){
                       setState(() {
                         showSpinner = false;
