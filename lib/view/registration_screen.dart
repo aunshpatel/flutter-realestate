@@ -123,7 +123,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         if(success == 'success'){
                           _registrationMessage();
                         } else{
-                          print("success: $success");
+                          print("success registration page else condition: $success");
                           if(success.toString().contains("username_1 dup key")){
                             _errorMessage("Username already exists!","Please enter a different username.");
                           }
@@ -133,7 +133,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           print("Registration failed");
                         }
                         // _registrationMessage();
-                        print("success: $success");
+                        print("success registration page try catch: $success");
                       } catch(e){
                         setState(() {
                           showSpinner = false;
