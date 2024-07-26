@@ -45,6 +45,18 @@ const kWhiteBoldRegularText = TextStyle(
   color: Colors.white
 );
 
+const kRedBoldRegularText = TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 15,
+    color: Colors.red
+);
+
+const kDarkBoldRegularText = TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 15,
+    color: kDarkTextColor
+);
+
 const kRegularTextStrike = TextStyle(
   fontWeight: FontWeight.normal,
   decoration: TextDecoration.lineThrough,
@@ -181,5 +193,36 @@ InputDecoration listingInputDecoration(String hintText) {
     ),
     enabledBorder: kEnabledBorder,
     focusedBorder: kFocusedBorder,
+  );
+}
+
+Future<void> commonAlertBox(BuildContext context, String title, String message) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(title, style: kSideMenuDarkTextStyle),
+        actions: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(message, style: kRegularText),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(
+                child: const Text('OK', style: TextStyle(color: kDarkTitleColor),),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+        ],
+      );
+    },
   );
 }
