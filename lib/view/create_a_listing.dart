@@ -185,6 +185,9 @@ class _CreateAListingState extends State<CreateAListing> {
                     deletedImage.delete().whenComplete(() {
                       setState(() {
                         urlOfImageUploaded.removeAt(index);
+                        if(urlOfImageUploaded.length < 6){
+                          isUploadButtonDisabled = false;
+                        }
                       });
                     });
                   },
@@ -257,293 +260,293 @@ class _CreateAListingState extends State<CreateAListing> {
               child: Column(
                 children: [
                   Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        const SizedBox(
-                          height: 17.5,
-                        ),
-                        Expanded(
-                          flex: 6,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              //Listing Name
-                              TextField(
-                                controller: nameController,
-                                keyboardType: TextInputType.name,
-                                onChanged:(value){
-                                  setState(() {
-                                    listingName = value;
-                                  });
-                                },
-                                style: kSemiBoldRegularStyle,
-                                decoration: listingInputDecoration('Name of Listing',),
-                              ),
-                              const SizedBox(
-                                height: 17.5,
-                              ),
-                              //Listing Description
-                              TextField(
-                                controller: descriptionController,
-                                keyboardType: TextInputType.multiline,
-                                maxLines: 6,
-                                onChanged:(value){
-                                  setState(() {
-                                    description = value;
-                                  });
-                                },
-                                style: kSemiBoldRegularStyle,
-                                decoration: listingInputDecoration('Description'),
-                              ),
-                              const SizedBox(
-                                height: 17.5,
-                              ),
-                              //Listing Address
-                              TextField(
-                                controller: addressController,
-                                keyboardType: TextInputType.streetAddress,
-                                onChanged:(value){
-                                  setState(() {
-                                    address = value;
-                                  });
-                                },
-                                style: kSemiBoldRegularStyle,
-                                decoration: listingInputDecoration('Address',),
-                              ),
-                              const SizedBox(
-                                height: 17.5,
-                              ),
-                              //Row for For sale/For rent radio button
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Expanded(
-                                    child: ListTile(
-                                        contentPadding: const EdgeInsets.symmetric(vertical: 2.0),
-                                        title: const Text('For Sale', style: kSemiBoldRegularStyle,),
-                                        leading: Padding(
-                                          padding: const EdgeInsets.only(top: 2),
-                                          child: Radio(
-                                            value: 1,
-                                            groupValue: forSaleOrRent,
-                                            onChanged: (int? value) {
-                                              setState(() {
-                                                forSaleOrRent = value!;
-                                              });
-                                            },
-                                          ),
-                                        )
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: ListTile(
-                                        contentPadding: const EdgeInsets.symmetric(vertical: 2.0),
-                                        title: const Text('For Rent',style: kSemiBoldRegularStyle,),
-                                        leading: Padding(
-                                          padding: const EdgeInsets.only(top: 2),
-                                          child: Radio(
-                                            value: 2,
-                                            groupValue: forSaleOrRent,
-                                            onChanged: (int? value) {
-                                              setState(() {
-                                                forSaleOrRent = value!;
-                                              });
-                                            },
-                                          ),
-                                        )
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              //Row for discount toggle
-                              Row(
-                                children: [
-                                  Checkbox(
-                                      value: isDiscountAvailable,
-                                      activeColor: kLightTitleColor,
-                                      onChanged:(bool? newValue){
-                                        setState(() {
-                                          isDiscountAvailable = newValue!;
-                                        });
-                                      }
-                                  ),
-                                  const Text('Discount Available', style: kSemiBoldRegularStyle,),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 17.5,
-                              ),
-                              //Listing Regular Price
-                              TextField(
-                                controller: regularPriceController,
-                                keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
-                                textInputAction: TextInputAction.done,
-                                onChanged:(value){ },
-                                style: kSemiBoldRegularStyle,
-                                decoration: forSaleOrRent == 1 ? listingInputDecoration('Regular Price',) : listingInputDecoration('Regular Rent',),
-                              ),
-                              const SizedBox(
-                                height: 17.5,
-                              ),
-                              //Listing Discounted Price
-                              if (isDiscountAvailable) ...[
-                                TextField(
-                                  controller: discountedPriceController,
-                                  keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
-                                  onChanged:(value){
-                                    setState(() {
-                                      discountedPrice = value as double;
-                                    });
-                                  },
-                                  style: kSemiBoldRegularStyle,
-                                  decoration: forSaleOrRent == 1 ? listingInputDecoration('Discounted Price',) : listingInputDecoration('Discounted Rent',),
-                                ),
-                                const SizedBox(
-                                  height: 15.0,
-                                ),
-                              ],
-                              //Listing Bedrooms
-                              TextField(
-                                controller: bedroomsController,
-                                keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
-                                textInputAction: TextInputAction.done,
-                                onChanged:(value){
-                                  setState(() {
-                                    bedrooms = value as int;
-                                  });
-                                },
-                                style: kSemiBoldRegularStyle,
-                                decoration: listingInputDecoration('Bedrooms',),
-                              ),
-                              const SizedBox(
-                                height: 17.5,
-                              ),
-                              //Listing Bedrooms
-                              TextField(
-                                controller: bathroomsController,
-                                keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
-                                textInputAction: TextInputAction.done,
-                                onChanged:(value){
-                                  setState(() {
-                                    bathrooms = value as double;
-                                  });
-                                },
-                                style: kSemiBoldRegularStyle,
-                                decoration: listingInputDecoration('Bathrooms',),
-                              ),
-                              const SizedBox(
-                                height: 17.5,
-                              ),
-                              //Listing Parking
-                              TextField(
-                                controller: parkingController,
-                                keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
-                                textInputAction: TextInputAction.done,
-                                onChanged:(value){
-                                  setState(() {
-                                    parkingSpaces = value as int;
-                                  });
-                                },
-                                style: kSemiBoldRegularStyle,
-                                decoration: listingInputDecoration('Parking Spot(s)',),
-                              ),
-                              const SizedBox(
-                                height: 17.5,
-                              ),
-                              //Dropdown
-                              Padding(
-                                padding: const EdgeInsets.only(left: 10),
-                                child: DropdownButton(
-                                  value: interiorOfHouse,
-                                  icon: const Icon(Icons.keyboard_arrow_down),
-                                  items: items.map((String items) {
-                                    return DropdownMenuItem(
-                                      value: items,
-                                      child: Text(items),
-                                    );
-                                  }).toList(),
-                                  onChanged: (String? newValue) {
-                                    setState(() {
-                                      interiorOfHouse = newValue!;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: 10,),
-                        Expanded(
-                            flex: 4,
-                            child:Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      const SizedBox(
+                        height: 17.5,
+                      ),
+                      Expanded(
+                        flex: 6,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            //Listing Name
+                            TextField(
+                              controller: nameController,
+                              keyboardType: TextInputType.name,
+                              onChanged:(value){
+                                setState(() {
+                                  listingName = value;
+                                });
+                              },
+                              style: kSemiBoldRegularStyle,
+                              decoration: listingInputDecoration('Name of Listing',),
+                            ),
+                            const SizedBox(
+                              height: 17.5,
+                            ),
+                            //Listing Description
+                            TextField(
+                              controller: descriptionController,
+                              keyboardType: TextInputType.multiline,
+                              maxLines: 6,
+                              onChanged:(value){
+                                setState(() {
+                                  description = value;
+                                });
+                              },
+                              style: kSemiBoldRegularStyle,
+                              decoration: listingInputDecoration('Description'),
+                            ),
+                            const SizedBox(
+                              height: 17.5,
+                            ),
+                            //Listing Address
+                            TextField(
+                              controller: addressController,
+                              keyboardType: TextInputType.streetAddress,
+                              onChanged:(value){
+                                setState(() {
+                                  address = value;
+                                });
+                              },
+                              style: kSemiBoldRegularStyle,
+                              decoration: listingInputDecoration('Address',),
+                            ),
+                            const SizedBox(
+                              height: 17.5,
+                            ),
+                            //Row for For sale/For rent radio button
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                isUploadButtonDisabled == true ? const MaterialButton(
-                                  onPressed: null,
-                                  color: kDarkTitleColor,
-                                  child: Text('Upload Photos',style: kWhiteBoldRegularText,),
-                                ) : MaterialButton(
-                                  onPressed: photoSelector,
-                                  color: kDarkTitleColor,
-                                  child: const Text('Upload Photos',style: kWhiteBoldRegularText,),
-                                ),
-
-                                if(urlOfImageUploaded.isNotEmpty || urlOfImageUploaded!=null) ...[
-                                  const SizedBox(height:10),
-                                  // Column(
-                                  //   children: [
-                                  //     for(int i=0; i<=urlOfImageUploaded.length;i++)...[
-                                  //       Padding(
-                                  //         padding: EdgeInsets.only(top:6, bottom: 6),
-                                  //         child: Image.network(
-                                  //           urlOfImageUploaded[i],
-                                  //           height: 100,
-                                  //         ),
-                                  //       )
-                                  //     ]
-                                  //   ],
-                                  // )
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      ListView.builder(
-                                        scrollDirection: Axis.vertical,
-                                        shrinkWrap: true,
-                                        itemCount: urlOfImageUploaded.length,
-                                        itemBuilder: (BuildContext context, int index) => Padding(
-                                            padding: const EdgeInsets.only(top:6, bottom: 6),
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: [
-                                                Image.network(
-                                                  urlOfImageUploaded[index],
-                                                  height: 100,
-                                                ),
-                                                const SizedBox(width: 6,),
-                                                TextButton(
-                                                  onPressed: () => {
-                                                    deletePhoto(urlOfImageUploaded[index], index)
-                                                  },
-                                                  // color: kDarkTitleColor,
-                                                  child: const Text('Delete',style: kRedBoldRegularText),
-                                                ),
-                                              ],
-                                            )
+                              children: <Widget>[
+                                Expanded(
+                                  child: ListTile(
+                                      contentPadding: const EdgeInsets.symmetric(vertical: 2.0),
+                                      title: const Text('For Sale', style: kSemiBoldRegularStyle,),
+                                      leading: Padding(
+                                        padding: const EdgeInsets.only(top: 2),
+                                        child: Radio(
+                                          value: 1,
+                                          groupValue: forSaleOrRent,
+                                          onChanged: (int? value) {
+                                            setState(() {
+                                              forSaleOrRent = value!;
+                                            });
+                                          },
                                         ),
                                       )
-                                    ],
-                                  )
-                                ]
-                                // else ...[
-                                //   const SizedBox(height:10),
-                                // ]
+                                  ),
+                                ),
+                                Expanded(
+                                  child: ListTile(
+                                      contentPadding: const EdgeInsets.symmetric(vertical: 2.0),
+                                      title: const Text('For Rent',style: kSemiBoldRegularStyle,),
+                                      leading: Padding(
+                                        padding: const EdgeInsets.only(top: 2),
+                                        child: Radio(
+                                          value: 2,
+                                          groupValue: forSaleOrRent,
+                                          onChanged: (int? value) {
+                                            setState(() {
+                                              forSaleOrRent = value!;
+                                            });
+                                          },
+                                        ),
+                                      )
+                                  ),
+                                ),
                               ],
-                            )
-                        )
-                      ]
+                            ),
+                            //Row for discount toggle
+                            Row(
+                              children: [
+                                Checkbox(
+                                    value: isDiscountAvailable,
+                                    activeColor: kLightTitleColor,
+                                    onChanged:(bool? newValue){
+                                      setState(() {
+                                        isDiscountAvailable = newValue!;
+                                      });
+                                    }
+                                ),
+                                const Text('Discount Available', style: kSemiBoldRegularStyle,),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 17.5,
+                            ),
+                            //Listing Regular Price
+                            TextField(
+                              controller: regularPriceController,
+                              keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
+                              textInputAction: TextInputAction.done,
+                              onChanged:(value){ },
+                              style: kSemiBoldRegularStyle,
+                              decoration: forSaleOrRent == 1 ? listingInputDecoration('Regular Price',) : listingInputDecoration('Regular Rent',),
+                            ),
+                            const SizedBox(
+                              height: 17.5,
+                            ),
+                            //Listing Discounted Price
+                            if (isDiscountAvailable) ...[
+                              TextField(
+                                controller: discountedPriceController,
+                                keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
+                                onChanged:(value){
+                                  setState(() {
+                                    discountedPrice = value as double;
+                                  });
+                                },
+                                style: kSemiBoldRegularStyle,
+                                decoration: forSaleOrRent == 1 ? listingInputDecoration('Discounted Price',) : listingInputDecoration('Discounted Rent',),
+                              ),
+                              const SizedBox(
+                                height: 15.0,
+                              ),
+                            ],
+                            //Listing Bedrooms
+                            TextField(
+                              controller: bedroomsController,
+                              keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
+                              textInputAction: TextInputAction.done,
+                              onChanged:(value){
+                                setState(() {
+                                  bedrooms = value as int;
+                                });
+                              },
+                              style: kSemiBoldRegularStyle,
+                              decoration: listingInputDecoration('Bedrooms',),
+                            ),
+                            const SizedBox(
+                              height: 17.5,
+                            ),
+                            //Listing Bedrooms
+                            TextField(
+                              controller: bathroomsController,
+                              keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
+                              textInputAction: TextInputAction.done,
+                              onChanged:(value){
+                                setState(() {
+                                  bathrooms = value as double;
+                                });
+                              },
+                              style: kSemiBoldRegularStyle,
+                              decoration: listingInputDecoration('Bathrooms',),
+                            ),
+                            const SizedBox(
+                              height: 17.5,
+                            ),
+                            //Listing Parking
+                            TextField(
+                              controller: parkingController,
+                              keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
+                              textInputAction: TextInputAction.done,
+                              onChanged:(value){
+                                setState(() {
+                                  parkingSpaces = value as int;
+                                });
+                              },
+                              style: kSemiBoldRegularStyle,
+                              decoration: listingInputDecoration('Parking Spot(s)',),
+                            ),
+                            const SizedBox(
+                              height: 17.5,
+                            ),
+                            //Dropdown
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: DropdownButton(
+                                value: interiorOfHouse,
+                                icon: const Icon(Icons.keyboard_arrow_down),
+                                items: items.map((String items) {
+                                  return DropdownMenuItem(
+                                    value: items,
+                                    child: Text(items),
+                                  );
+                                }).toList(),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    interiorOfHouse = newValue!;
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 10,),
+                      Expanded(
+                          flex: 4,
+                          child:Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              isUploadButtonDisabled == true ? const MaterialButton(
+                                onPressed: null,
+                                color: kDarkTitleColor,
+                                child: Text('Upload Photos',style: kWhiteBoldRegularText,),
+                              ) : MaterialButton(
+                                onPressed: photoSelector,
+                                color: kDarkTitleColor,
+                                child: const Text('Upload Photos',style: kWhiteBoldRegularText,),
+                              ),
+
+                              if(urlOfImageUploaded.isNotEmpty || urlOfImageUploaded!=null) ...[
+                                const SizedBox(height:10),
+                                // Column(
+                                //   children: [
+                                //     for(int i=0; i<=urlOfImageUploaded.length;i++)...[
+                                //       Padding(
+                                //         padding: EdgeInsets.only(top:6, bottom: 6),
+                                //         child: Image.network(
+                                //           urlOfImageUploaded[i],
+                                //           height: 100,
+                                //         ),
+                                //       )
+                                //     ]
+                                //   ],
+                                // )
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ListView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      shrinkWrap: true,
+                                      itemCount: urlOfImageUploaded.length,
+                                      itemBuilder: (BuildContext context, int index) => Padding(
+                                          padding: const EdgeInsets.only(top:6, bottom: 6),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              Image.network(
+                                                urlOfImageUploaded[index],
+                                                height: 100,
+                                              ),
+                                              const SizedBox(width: 6,),
+                                              TextButton(
+                                                onPressed: () => {
+                                                  deletePhoto(urlOfImageUploaded[index], index)
+                                                },
+                                                // color: kDarkTitleColor,
+                                                child: const Text('Delete',style: kRedBoldRegularText),
+                                              ),
+                                            ],
+                                          )
+                                      ),
+                                    )
+                                  ],
+                                )
+                              ]
+                              // else ...[
+                              //   const SizedBox(height:10),
+                              // ]
+                            ],
+                          )
+                      )
+                    ]
                   ),
                   const SizedBox(
                     height: 17,
