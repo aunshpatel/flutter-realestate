@@ -34,8 +34,8 @@ class _CreateAListingState extends State<CreateAListing> {
   File? _image;
   bool uploading = false, isUploadButtonDisabled = false;
   var urlOfImageUploaded = [];
-
   var pickedImages;
+  final ScrollController _scrollController = ScrollController();
   var items = [
     'Furnished',
     'Semi Furnished',
@@ -60,7 +60,7 @@ class _CreateAListingState extends State<CreateAListing> {
 
             startUpload(true);
             Reference ref = FirebaseStorage.instance.ref().child(
-                Path.basename(_image!.path)
+              Path.basename(_image!.path)
             );
             UploadTask uploadTask = ref.putFile(_image!);
             TaskSnapshot snapshot = await uploadTask.whenComplete(() {
@@ -92,6 +92,25 @@ class _CreateAListingState extends State<CreateAListing> {
     setState(() async {
       if (pickedImages != null) {
         _image = File(pickedImages.path);
+        print("_image: ${_image?.path}");
+        startUpload(true);
+        Reference ref = FirebaseStorage.instance.ref().child(
+            Path.basename(_image!.path)
+        );
+        UploadTask uploadTask = ref.putFile(_image!);
+        TaskSnapshot snapshot = await uploadTask.whenComplete(() {
+          print('New picture uploaded');
+          startUpload(false);
+        });
+        var uploadedImageLink = await snapshot.ref.getDownloadURL();
+        setState(() {
+          urlOfImageUploaded.add(uploadedImageLink);
+        });
+        print("urlOfImageUploaded:$urlOfImageUploaded, its length is:${urlOfImageUploaded.length}");
+        if(urlOfImageUploaded.length == 6){
+          isUploadButtonDisabled = true;
+        }
+        print("isUploadButtonDisabled:$isUploadButtonDisabled");
       } else {
         print('No image selected.');
       }
@@ -495,30 +514,42 @@ class _CreateAListingState extends State<CreateAListing> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  ListView.builder(
-                                    scrollDirection: Axis.vertical,
-                                    shrinkWrap: true,
-                                    itemCount: urlOfImageUploaded.length,
-                                    itemBuilder: (BuildContext context, int index) => Padding(
-                                      padding: const EdgeInsets.only(top:6, bottom: 6),
-                                      child: Column(
-                                        children: [
-                                          Image.network(
-                                            urlOfImageUploaded[index],
-                                            height: 100,
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height - 220,
+                                    child: Scrollbar(
+                                      thickness: 10,
+                                      controller: _scrollController,
+                                      child: ScrollConfiguration(
+                                        behavior: ScrollConfiguration.of(context)
+                                            .copyWith(scrollbars: false),
+                                        child: ListView.builder(
+                                          scrollDirection: Axis.vertical,
+                                          shrinkWrap: true,
+                                          controller: _scrollController,
+                                          itemCount: urlOfImageUploaded.length,
+                                          itemBuilder: (BuildContext context, int index) => Padding(
+                                              padding: const EdgeInsets.only(top:6, bottom: 6),
+                                              child: Column(
+                                                children: [
+                                                  Image.network(
+                                                    urlOfImageUploaded[index],
+                                                    height: 100,
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () => {
+                                                      deletePhoto(urlOfImageUploaded[index], index)
+                                                    },
+                                                    child: const Text('Delete Image',style: kRedBoldRegularText),
+                                                  ),
+                                                ],
+                                              )
                                           ),
-                                          TextButton(
-                                            onPressed: () => {
-                                              deletePhoto(urlOfImageUploaded[index], index)
-                                            },
-                                            child: const Text('Delete Image',style: kRedBoldRegularText),
-                                          ),
-                                        ],
-                                      )
+                                        ),
+                                      ),
                                     ),
                                   )
                                 ],
-                              )
+                              ),
                             ]
                           ],
                         )
