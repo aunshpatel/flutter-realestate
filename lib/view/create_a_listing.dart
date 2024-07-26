@@ -51,12 +51,10 @@ class _CreateAListingState extends State<CreateAListing> {
   Future getPhotoFromGallery() async {
     pickedImages = await picker.pickMultiImage(imageQuality: 100);
     if(pickedImages.length > 0 && pickedImages.length<=6){
-      print("pickedImages.length 1: ${pickedImages.length}");
       setState(() async {
         if (pickedImages != null) {
           for(int i=0; i<pickedImages?.length; i++){
             _image = File(pickedImages[i].path);
-            print("_image$i: ${_image?.path}");
 
             startUpload(true);
             Reference ref = FirebaseStorage.instance.ref().child(
@@ -71,11 +69,10 @@ class _CreateAListingState extends State<CreateAListing> {
             setState(() {
               urlOfImageUploaded.add(uploadedImageLink);
             });
-            print("urlOfImageUploaded:$urlOfImageUploaded, its length is:${urlOfImageUploaded.length}");
+
             if(urlOfImageUploaded.length == 6){
               isUploadButtonDisabled = true;
             }
-            print("isUploadButtonDisabled:$isUploadButtonDisabled");
           }
         } else {
           print('No image selected.');
@@ -92,7 +89,6 @@ class _CreateAListingState extends State<CreateAListing> {
     setState(() async {
       if (pickedImages != null) {
         _image = File(pickedImages.path);
-        print("_image: ${_image?.path}");
         startUpload(true);
         Reference ref = FirebaseStorage.instance.ref().child(
             Path.basename(_image!.path)
@@ -106,11 +102,9 @@ class _CreateAListingState extends State<CreateAListing> {
         setState(() {
           urlOfImageUploaded.add(uploadedImageLink);
         });
-        print("urlOfImageUploaded:$urlOfImageUploaded, its length is:${urlOfImageUploaded.length}");
         if(urlOfImageUploaded.length == 6){
           isUploadButtonDisabled = true;
         }
-        print("isUploadButtonDisabled:$isUploadButtonDisabled");
       } else {
         print('No image selected.');
       }
@@ -173,7 +167,6 @@ class _CreateAListingState extends State<CreateAListing> {
   }
 
   deletePhoto(String photoURL, int index){
-    print('photoURL:$photoURL');
     deletePhotoConfirmation(photoURL, index);
   }
 
