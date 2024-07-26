@@ -226,9 +226,7 @@ class _CreateAListingState extends State<CreateAListing> {
               );
             },
           ),
-          actions: <Widget>[
-
-          ],
+          actions: <Widget>[ ],
           centerTitle: true,
           title: const Wrap(
             children: [
@@ -256,8 +254,8 @@ class _CreateAListingState extends State<CreateAListing> {
             ),
           ) :
           Padding(
-              padding:  const EdgeInsets.fromLTRB(10, 24, 10, 24),
-              child: Column(
+            padding:  const EdgeInsets.fromLTRB(10, 24, 10, 24),
+            child: Column(
                 children: [
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -479,80 +477,51 @@ class _CreateAListingState extends State<CreateAListing> {
                       ),
                       const SizedBox(width: 10,),
                       Expanded(
-                          flex: 4,
-                          child:Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // isUploadButtonDisabled == true ? const MaterialButton(
-                              //   onPressed: null,
-                              //   color: kDarkTitleColor,
-                              //   child: Text('Upload Photos',style: kWhiteBoldRegularText,),
-                              // ) : MaterialButton(
-                              //   onPressed: photoSelector,
-                              //   color: kDarkTitleColor,
-                              //   child: const Text('Upload Photos',style: kWhiteBoldRegularText,),
-                              // ),
+                        flex: 4,
+                        child:Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                             MaterialButton(
+                              onPressed: isUploadButtonDisabled == true ? () => {
+                                commonAlertBox(context, 'WARNING!', 'You can not upload more than 6 images.')
+                              } : photoSelector,
+                              color: kDarkTitleColor,
+                              child: const Text('Upload Photos',style: kWhiteBoldRegularText,),
+                            ),
 
-                               MaterialButton(
-                                onPressed: isUploadButtonDisabled == true ? () => {
-                                  commonAlertBox(context, 'WARNING!', 'You can not upload more than 6 images.')
-                                } : photoSelector,
-                                color: kDarkTitleColor,
-                                child: const Text('Upload Photos',style: kWhiteBoldRegularText,),
-                              ),
-
-                              if(urlOfImageUploaded.isNotEmpty || urlOfImageUploaded!=null) ...[
-                                const SizedBox(height:10),
-                                // Column(
-                                //   children: [
-                                //     for(int i=0; i<=urlOfImageUploaded.length;i++)...[
-                                //       Padding(
-                                //         padding: EdgeInsets.only(top:6, bottom: 6),
-                                //         child: Image.network(
-                                //           urlOfImageUploaded[i],
-                                //           height: 100,
-                                //         ),
-                                //       )
-                                //     ]
-                                //   ],
-                                // )
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    ListView.builder(
-                                      scrollDirection: Axis.vertical,
-                                      shrinkWrap: true,
-                                      itemCount: urlOfImageUploaded.length,
-                                      itemBuilder: (BuildContext context, int index) => Padding(
-                                        padding: const EdgeInsets.only(top:6, bottom: 6),
-                                        child: Column(
-                                          // mainAxisAlignment: MainAxisAlignment.start,
-                                          children: [
-                                            Image.network(
-                                              urlOfImageUploaded[index],
-                                              height: 100,
-                                            ),
-                                            // const SizedBox(width: 6,),
-                                            TextButton(
-                                              onPressed: () => {
-                                                deletePhoto(urlOfImageUploaded[index], index)
-                                              },
-                                              // color: kDarkTitleColor,
-                                              child: const Text('Delete Image',style: kRedBoldRegularText),
-                                            ),
-                                          ],
-                                        )
-                                      ),
-                                    )
-                                  ],
-                                )
-                              ]
-                              // else ...[
-                              //   const SizedBox(height:10),
-                              // ]
-                            ],
-                          )
+                            if(urlOfImageUploaded.isNotEmpty || urlOfImageUploaded!=null) ...[
+                              const SizedBox(height:10),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ListView.builder(
+                                    scrollDirection: Axis.vertical,
+                                    shrinkWrap: true,
+                                    itemCount: urlOfImageUploaded.length,
+                                    itemBuilder: (BuildContext context, int index) => Padding(
+                                      padding: const EdgeInsets.only(top:6, bottom: 6),
+                                      child: Column(
+                                        children: [
+                                          Image.network(
+                                            urlOfImageUploaded[index],
+                                            height: 100,
+                                          ),
+                                          TextButton(
+                                            onPressed: () => {
+                                              deletePhoto(urlOfImageUploaded[index], index)
+                                            },
+                                            child: const Text('Delete Image',style: kRedBoldRegularText),
+                                          ),
+                                        ],
+                                      )
+                                    ),
+                                  )
+                                ],
+                              )
+                            ]
+                          ],
+                        )
                       )
                     ]
                   ),
