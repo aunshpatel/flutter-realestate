@@ -204,11 +204,19 @@ Future<void> commonAlertBox(BuildContext context, String title, String message) 
       return AlertDialog(
         title: Text(title, style: kSideMenuDarkTextStyle),
         actions: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(message, style: kRegularText),
-            ],
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //   children: [
+          //     Text(message, style: kRegularText),
+          //   ],
+          // ),
+          Container(
+              padding: const EdgeInsets.only(left: 16, right: 16),
+              child: Column (
+                children: <Widget>[
+                  Text(message, style: kLightSemiBoldTextStyle),
+                ],
+              )
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
