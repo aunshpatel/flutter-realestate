@@ -525,24 +525,24 @@ class _CreateAListingState extends State<CreateAListing> {
                                       shrinkWrap: true,
                                       itemCount: urlOfImageUploaded.length,
                                       itemBuilder: (BuildContext context, int index) => Padding(
-                                          padding: const EdgeInsets.only(top:6, bottom: 6),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                              Image.network(
-                                                urlOfImageUploaded[index],
-                                                height: 100,
-                                              ),
-                                              const SizedBox(width: 6,),
-                                              TextButton(
-                                                onPressed: () => {
-                                                  deletePhoto(urlOfImageUploaded[index], index)
-                                                },
-                                                // color: kDarkTitleColor,
-                                                child: const Text('Delete',style: kRedBoldRegularText),
-                                              ),
-                                            ],
-                                          )
+                                        padding: const EdgeInsets.only(top:6, bottom: 6),
+                                        child: Column(
+                                          // mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Image.network(
+                                              urlOfImageUploaded[index],
+                                              height: 100,
+                                            ),
+                                            // const SizedBox(width: 6,),
+                                            TextButton(
+                                              onPressed: () => {
+                                                deletePhoto(urlOfImageUploaded[index], index)
+                                              },
+                                              // color: kDarkTitleColor,
+                                              child: const Text('Delete Image',style: kRedBoldRegularText),
+                                            ),
+                                          ],
+                                        )
                                       ),
                                     )
                                   ],
