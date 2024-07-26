@@ -483,12 +483,20 @@ class _CreateAListingState extends State<CreateAListing> {
                           child:Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              isUploadButtonDisabled == true ? const MaterialButton(
-                                onPressed: null,
-                                color: kDarkTitleColor,
-                                child: Text('Upload Photos',style: kWhiteBoldRegularText,),
-                              ) : MaterialButton(
-                                onPressed: photoSelector,
+                              // isUploadButtonDisabled == true ? const MaterialButton(
+                              //   onPressed: null,
+                              //   color: kDarkTitleColor,
+                              //   child: Text('Upload Photos',style: kWhiteBoldRegularText,),
+                              // ) : MaterialButton(
+                              //   onPressed: photoSelector,
+                              //   color: kDarkTitleColor,
+                              //   child: const Text('Upload Photos',style: kWhiteBoldRegularText,),
+                              // ),
+
+                               MaterialButton(
+                                onPressed: isUploadButtonDisabled == true ? () => {
+                                  commonAlertBox(context, 'WARNING!', 'You can not upload more than 6 images.')
+                                } : photoSelector,
                                 color: kDarkTitleColor,
                                 child: const Text('Upload Photos',style: kWhiteBoldRegularText,),
                               ),
